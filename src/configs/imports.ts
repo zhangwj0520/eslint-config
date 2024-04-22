@@ -9,23 +9,23 @@ export async function imports(options: OptionsStylistic = {}): Promise<TypedFlat
 
   return [
     {
-      name: 'antfu/imports/rules',
+      name: 'nika/imports/rules',
       plugins: {
-        antfu: pluginAntfu,
         import: pluginImport,
+        nika: pluginAntfu,
       },
       rules: {
-        'antfu/import-dedupe': 'error',
-        'antfu/no-import-dist': 'error',
-        'antfu/no-import-node-modules-by-path': 'error',
-
         'import/first': 'error',
         'import/no-duplicates': 'error',
         'import/no-mutable-exports': 'error',
+
         'import/no-named-default': 'error',
         'import/no-self-import': 'error',
         'import/no-webpack-loader-syntax': 'error',
         'import/order': 'error',
+        'nika/import-dedupe': 'error',
+        'nika/no-import-dist': 'error',
+        'nika/no-import-node-modules-by-path': 'error',
 
         ...stylistic
           ? {
@@ -36,10 +36,10 @@ export async function imports(options: OptionsStylistic = {}): Promise<TypedFlat
     },
     {
       files: ['**/bin/**/*', `**/bin.${GLOB_SRC_EXT}`],
-      name: 'antfu/imports/disables/bin',
+      name: 'nika/imports/disables/bin',
       rules: {
-        'antfu/no-import-dist': 'off',
-        'antfu/no-import-node-modules-by-path': 'off',
+        'nika/no-import-dist': 'off',
+        'nika/no-import-node-modules-by-path': 'off',
       },
     },
   ]

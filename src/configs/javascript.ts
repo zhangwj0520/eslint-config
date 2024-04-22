@@ -35,9 +35,9 @@ export async function javascript(
       linterOptions: {
         reportUnusedDisableDirectives: true,
       },
-      name: 'antfu/javascript/rules',
+      name: 'nika/javascript/rules',
       plugins: {
-        'antfu': pluginAntfu,
+        'nika': pluginAntfu,
         'unused-imports': pluginUnusedImports,
       },
       rules: {
@@ -221,7 +221,7 @@ export async function javascript(
     },
     {
       files: [`scripts/${GLOB_SRC}`, `cli.${GLOB_SRC_EXT}`],
-      name: 'antfu/javascript/disables/cli',
+      name: 'nika/javascript/disables/cli',
       rules: {
         'no-console': 'off',
       },

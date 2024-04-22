@@ -63,7 +63,7 @@ export async function formatters(
 
   const configs: TypedFlatConfigItem[] = [
     {
-      name: 'antfu/formatter/setup',
+      name: 'nika/formatter/setup',
       plugins: {
         format: pluginFormat,
       },
@@ -77,7 +77,7 @@ export async function formatters(
         languageOptions: {
           parser: parserPlain,
         },
-        name: 'antfu/formatter/css',
+        name: 'nika/formatter/css',
         rules: {
           'format/prettier': [
             'error',
@@ -93,7 +93,7 @@ export async function formatters(
         languageOptions: {
           parser: parserPlain,
         },
-        name: 'antfu/formatter/scss',
+        name: 'nika/formatter/scss',
         rules: {
           'format/prettier': [
             'error',
@@ -109,7 +109,7 @@ export async function formatters(
         languageOptions: {
           parser: parserPlain,
         },
-        name: 'antfu/formatter/less',
+        name: 'nika/formatter/less',
         rules: {
           'format/prettier': [
             'error',
@@ -129,7 +129,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/formatter/html',
+      name: 'nika/formatter/html',
       rules: {
         'format/prettier': [
           'error',
@@ -159,7 +159,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/formatter/markdown',
+      name: 'nika/formatter/markdown',
       rules: {
         [`format/${formater}`]: [
           'error',
@@ -184,7 +184,7 @@ export async function formatters(
         languageOptions: {
           parser: parserPlain,
         },
-        name: 'antfu/formatter/slidev',
+        name: 'nika/formatter/slidev',
         rules: {
           'format/prettier': [
             'error',
@@ -209,7 +209,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/formatter/astro',
+      name: 'nika/formatter/astro',
       rules: {
         'format/prettier': [
           'error',
@@ -231,7 +231,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/formatter/graphql',
+      name: 'nika/formatter/graphql',
       rules: {
         'format/prettier': [
           'error',

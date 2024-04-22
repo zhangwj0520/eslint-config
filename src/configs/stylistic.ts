@@ -41,24 +41,24 @@ export async function stylistic(
 
   return [
     {
-      name: 'antfu/stylistic/rules',
+      name: 'nika/stylistic/rules',
       plugins: {
-        antfu: pluginAntfu,
+        nika: pluginAntfu,
         style: pluginStylistic,
       },
       rules: {
         ...config.rules,
 
-        'antfu/consistent-list-newline': 'error',
+        'nika/consistent-list-newline': 'error',
 
         ...(lessOpinionated
           ? {
               curly: ['error', 'all'],
             }
           : {
-              'antfu/if-newline': 'error',
-              'antfu/top-level-function': 'error',
               'curly': ['error', 'multi-or-nest', 'consistent'],
+              'nika/if-newline': 'error',
+              'nika/top-level-function': 'error',
             }
         ),
 

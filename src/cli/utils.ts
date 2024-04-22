@@ -15,9 +15,9 @@ export function getEslintConfigContent(
   additionalConfigs?: string[],
 ) {
   return `
-import antfu from '@antfu/eslint-config'
+import nika from '@zhangwj0520/eslint-config'
 
-export default antfu({
+export default nika({
 ${mainConfig}
 }${additionalConfigs?.map(config => `,{\n${config}\n}`)})
 `.trimStart()

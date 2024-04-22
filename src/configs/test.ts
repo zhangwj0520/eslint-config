@@ -34,14 +34,14 @@ export async function test(
 
   return [
     {
-      name: 'antfu/test/setup',
+      name: 'nika/test/setup',
       plugins: {
         test: _pluginTest,
       },
     },
     {
       files,
-      name: 'antfu/test/rules',
+      name: 'nika/test/rules',
       rules: {
         'node/prefer-global/process': 'off',
 
