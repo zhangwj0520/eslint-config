@@ -1,6 +1,6 @@
 # @zhangwj0520/eslint-config
 
-[![npm](https://img.shields.io/npm/v/@zhangwj0520/eslint-config?color=444&label=)](https://npmjs.com/package/@zhangwj0520/eslint-config) [![code style](https://nika.me/badge-code-style.svg)](https://github.com/nika/eslint-config)
+[![npm](https://img.shields.io/npm/v/@zhangwj0520/eslint-config?color=444&label=)](https://npmjs.com/package/@zhangwj0520/eslint-config)
 
 - Single quotes, no semi
 - Auto fix for formatting (aimed to be used standalone **without** Prettier)
