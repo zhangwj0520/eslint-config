@@ -48,15 +48,16 @@ export async function stylistic(
       },
       rules: {
         ...config.rules,
+        'curly': ['off', 'multi', 'consistent'],
 
         'nika/consistent-list-newline': 'error',
+        'style/brace-style': 'off',
 
         ...(lessOpinionated
           ? {
-              curly: ['off', 'multi', 'consistent'],
+
             }
           : {
-              'curly': ['error', 'multi-or-nest', 'consistent'],
               'nika/if-newline': 'error',
               'nika/top-level-function': 'error',
             }
