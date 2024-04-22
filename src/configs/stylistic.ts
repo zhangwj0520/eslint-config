@@ -53,7 +53,7 @@ export async function stylistic(
 
         ...(lessOpinionated
           ? {
-              curly: ['error', 'all'],
+              curly: ['off', 'multi', 'consistent'],
             }
           : {
               'curly': ['error', 'multi-or-nest', 'consistent'],

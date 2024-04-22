@@ -202,7 +202,7 @@ export async function javascript(
         'unicode-bom': ['error', 'never'],
         'unused-imports/no-unused-imports': isInEditor ? 'off' : 'error',
         'unused-imports/no-unused-vars': [
-          'error',
+          'warn',
           {
             args: 'after-used',
             argsIgnorePattern: '^_',
