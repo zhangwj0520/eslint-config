@@ -2,19 +2,19 @@
 
 [![npm](https://img.shields.io/npm/v/@zhangwj0520/eslint-config?color=444&label=)](https://npmjs.com/package/@zhangwj0520/eslint-config)
 
-- Single quotes, no semi
 - Auto fix for formatting (aimed to be used standalone **without** Prettier)
-- Sorted imports, dangling commas
 - Reasonable defaults, best practices, only one line of config
-- Designed to work with TypeScript, JSX, Vue out-of-box
-- Lints also for json, yaml, toml, markdown
+- Designed to work with TypeScript, JSX, Vue, JSON, YAML, Toml, Markdown, etc. Out-of-box.
 - Opinionated, but [very customizable](#customization)
 - [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), compose easily!
-- Using [ESLint Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
-- Respects `.gitignore` by default
 - Optional [React](#react), [Svelte](#svelte), [UnoCSS](#unocss), [Astro](#astro), [Solid](#solid) support
-- Optional [formatters](#formatters) support for CSS, HTML, etc.
+- Optional [formatters](#formatters) support for formatting CSS, HTML, etc.
 - **Style principle**: Minimal for reading, stable for diff, consistent
+  - Sorted imports, dangling commas
+  - Single quotes, no semi
+  - Using [ESLint Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
+- Respects `.gitignore` by default
+- Supports ESLint v9 or v8.50.0+
 
 > [!IMPORTANT]
 > Since v1.0.0, this config is rewritten to the new [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), check the [release note](https://github.com/nika/eslint-config/releases/tag/v1.0.0) for more details.
@@ -103,6 +103,7 @@ Add the following settings to your `.vscode/settings.json`:
 ```jsonc
 {
   // Enable the ESlint flat config support
+  // (remove this if your ESLint extension above v3.0.5)
   "eslint.experimental.useFlatConfig": true,
 
   // Disable the default formatter, use eslint instead
@@ -143,7 +144,8 @@ Add the following settings to your `.vscode/settings.json`:
     "yaml",
     "toml",
     "gql",
-    "graphql"
+    "graphql",
+    "astro"
   ]
 }
 ```
@@ -554,22 +556,39 @@ npm i -D @unocss/eslint-plugin
 
 This config also provides some optional plugins/rules for extended usage.
 
-#### `perfectionist` (sorting)
+#### `command`
 
-This plugin [`eslint-plugin-perfectionist`](https://github.com/azat-io/eslint-plugin-perfectionist) allows you to sort object keys, imports, etc, with auto-fix.
+Powered by [`eslint-plugin-command`](https://github.com/antfu/eslint-plugin-command). It is not a typical rule for linting, but an on-demand micro-codemod tool that triggers by specific comments.
 
-The plugin is installed, but no rules are enabled by default.
+For a few triggers, for example:
 
-It's recommended to opt-in on each file individually using [configuration comments](https://eslint.org/docs/latest/use/configure/rules#using-configuration-comments-1).
+- `/// to-function` - converts an arrow function to a normal function
+- `/// to-arrow` - converts a normal function to an arrow function
+- `/// to-for-each` - converts a for-in/for-of loop to `.forEach()`
+- `/// to-for-of` - converts a `.forEach()` to a for-of loop
+- `/// keep-sorted` - sorts an object/array/interface
+- ... etc. - refer to the [documentation](https://github.com/antfu/eslint-plugin-command#built-in-commands)
 
-```js
-/* eslint perfectionist/sort-objects: "error" */
-const objectWantedToSort = {
-  a: 2,
-  b: 1,
-  c: 3,
+You can add the trigger comment one line above the code you want to transform, for example (note the triple slash):
+
+<!-- eslint-skip -->
+
+```ts
+/// to-function
+const foo = async (msg: string): void => {
+  console.log(msg)
 }
 ```
+
+Will be transformed to this when you hit save with your editor or run `eslint . --fix`:
+
+```ts
+async function foo(msg: string): void {
+  console.log(msg)
+}
+```
+
+The command comments are usually one-off and will be removed along with the transformation.
 
 ### Type Aware Rules
 
