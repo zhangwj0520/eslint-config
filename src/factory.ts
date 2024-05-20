@@ -87,7 +87,7 @@ export function nika(
     componentExts = [],
     gitignore: enableGitignore = true,
     isInEditor = !!((process.env.VSCODE_PID || process.env.VSCODE_CWD || process.env.JETBRAINS_IDE || process.env.VIM) && !process.env.CI),
-    react: enableReact = false,
+    react: enableReact = isPackageExists('react'),
     regexp: enableRegexp = true,
     solid: enableSolid = false,
     svelte: enableSvelte = false,
