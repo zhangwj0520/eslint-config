@@ -1,8 +1,8 @@
 {
   "name": "@zhangwj0520/eslint-config",
   "type": "module",
-  "version": "0.0.7",
-  "packageManager": "pnpm@9.0.5",
+  "version": "0.0.8",
+  "packageManager": "pnpm@9.1.2",
   "description": "zhangwj0520's ESLint config",
   "author": "ZhangWeijie <zhangwj0520@hotmail.com> (https://github.com/zhangwj0520/)",
   "license": "MIT",
