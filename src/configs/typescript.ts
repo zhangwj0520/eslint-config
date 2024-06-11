@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { GLOB_SRC, GLOB_TS, GLOB_TSX } from '../globs'
+import { GLOB_ASTRO_TS, GLOB_MARKDOWN, GLOB_TS, GLOB_TSX } from '../globs'
 import type { OptionsComponentExts, OptionsFiles, OptionsOverrides, OptionsTypeScriptParserOptions, OptionsTypeScriptWithTypes, TypedFlatConfigItem } from '../types'
 import { pluginAntfu } from '../plugins'
 import { interopDefault, renameRules, toArray } from '../utils'
@@ -14,11 +14,16 @@ export async function typescript(
   } = options
 
   const files = options.files ?? [
-    GLOB_SRC,
+    GLOB_TS,
+    GLOB_TSX,
     ...componentExts.map(ext => `**/*.${ext}`),
   ]
 
   const filesTypeAware = options.filesTypeAware ?? [GLOB_TS, GLOB_TSX]
+  const ignoresTypeAware = options.ignoresTypeAware ?? [
+    `${GLOB_MARKDOWN}/**`,
+    GLOB_ASTRO_TS,
+  ]
   const tsconfigPath = options?.tsconfigPath
     ? toArray(options.tsconfigPath)
     : undefined
@@ -43,6 +48,7 @@ export async function typescript(
     'ts/no-unsafe-return': 'error',
     'ts/restrict-plus-operands': 'error',
     'ts/restrict-template-expressions': 'error',
+    'ts/strict-boolean-expressions': 'error',
     'ts/unbound-method': 'error',
   }
 
@@ -88,10 +94,12 @@ export async function typescript(
     // assign type-aware parser for type-aware files and type-unaware parser for the rest
     ...isTypeAware
       ? [
-          makeParser(true, filesTypeAware),
+          makeParser(true, filesTypeAware, ignoresTypeAware),
           makeParser(false, files, filesTypeAware),
         ]
-      : [makeParser(false, files)],
+      : [
+          makeParser(false, files),
+        ],
     {
       files,
       name: 'nika/typescript/rules',
@@ -136,6 +144,7 @@ export async function typescript(
     ...isTypeAware
       ? [{
           files: filesTypeAware,
+          ignores: ignoresTypeAware,
           name: 'nika/typescript/rules-type-aware',
           rules: {
             ...tsconfigPath ? typeAwareRules : {},
@@ -144,7 +153,7 @@ export async function typescript(
         }]
       : [],
     {
-      files: ['**/*.d.ts'],
+      files: ['**/*.d.([cm])ts'],
       name: 'nika/typescript/disables/dts',
       rules: {
         'eslint-comments/no-unlimited-disable': 'off',

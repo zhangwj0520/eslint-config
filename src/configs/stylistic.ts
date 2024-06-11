@@ -58,6 +58,7 @@ export async function stylistic(
 
             }
           : {
+              'nika/curly': 'error',
               'nika/if-newline': 'error',
               'nika/top-level-function': 'error',
             }

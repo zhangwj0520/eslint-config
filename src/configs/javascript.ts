@@ -35,6 +35,9 @@ export async function javascript(
       linterOptions: {
         reportUnusedDisableDirectives: true,
       },
+      name: 'nika/javascript/setup',
+    },
+    {
       name: 'nika/javascript/rules',
       plugins: {
         'nika': pluginAntfu,
