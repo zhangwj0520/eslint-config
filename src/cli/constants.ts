@@ -113,9 +113,5 @@ export const dependenciesMap = {
   solid: [
     'eslint-plugin-solid',
   ],
-  svelte: [
-    'eslint-plugin-svelte',
-    'svelte-eslint-parser',
-  ],
   vue: [],
 } as const

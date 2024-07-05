@@ -333,16 +333,6 @@ export interface OptionsConfig extends OptionsComponentExts {
   solid?: boolean | OptionsOverrides
 
   /**
-   * Enable svelte rules.
-   *
-   * Requires installing:
-   * - `eslint-plugin-svelte`
-   *
-   * @default false
-   */
-  svelte?: boolean
-
-  /**
    * Enable unocss rules.
    *
    * Requires installing:

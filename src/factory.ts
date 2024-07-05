@@ -22,7 +22,6 @@ import {
   sortPackageJson,
   sortTsconfig,
   stylistic,
-  svelte,
   test,
   toml,
   typescript,
@@ -92,7 +91,6 @@ export function nika(
     react: enableReact = isPackageExists('react'),
     regexp: enableRegexp = true,
     solid: enableSolid = false,
-    svelte: enableSvelte = false,
     typescript: enableTypeScript = isPackageExists('typescript'),
     unocss: enableUnoCSS = false,
     vue: enableVue = VuePackages.some(i => isPackageExists(i)),
@@ -199,14 +197,6 @@ export function nika(
     configs.push(solid({
       overrides: getOverrides(options, 'solid'),
       tsconfigPath,
-      typescript: !!enableTypeScript,
-    }))
-  }
-
-  if (enableSvelte) {
-    configs.push(svelte({
-      overrides: getOverrides(options, 'svelte'),
-      stylistic: stylisticOptions,
       typescript: !!enableTypeScript,
     }))
   }
