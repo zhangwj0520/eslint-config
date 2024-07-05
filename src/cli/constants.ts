@@ -45,7 +45,6 @@ export const vscodeSettingsString = `
     "xml",
     "gql",
     "graphql",
-    "astro",
     "css",
     "less",
     "scss",
@@ -62,22 +61,6 @@ export const frameworkOptions: PromItem<FrameworkOption>[] = [
   {
     label: c.cyan('React'),
     value: 'react',
-  },
-  {
-    label: c.red('Svelte'),
-    value: 'svelte',
-  },
-  {
-    label: c.magenta('Astro'),
-    value: 'astro',
-  },
-  {
-    label: c.cyan('Solid'),
-    value: 'solid',
-  },
-  {
-    label: c.blue('Slidev'),
-    value: 'slidev',
   },
 ]
 
@@ -98,20 +81,10 @@ export const extraOptions: PromItem<ExtraLibrariesOption>[] = [
 export const extra: ExtraLibrariesOption[] = extraOptions.map(({ value }) => (value))
 
 export const dependenciesMap = {
-  astro: [
-    'eslint-plugin-astro',
-    'astro-eslint-parser',
-  ],
   react: [
     '@eslint-react/eslint-plugin',
     'eslint-plugin-react-hooks',
     'eslint-plugin-react-refresh',
-  ],
-  slidev: [
-    'prettier-plugin-slidev',
-  ],
-  solid: [
-    'eslint-plugin-solid',
   ],
   vue: [],
 } as const

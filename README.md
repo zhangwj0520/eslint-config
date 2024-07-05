@@ -7,7 +7,7 @@
 - Designed to work with TypeScript, JSX, Vue, JSON, YAML, Toml, Markdown, etc. Out-of-box.
 - Opinionated, but [very customizable](#customization)
 - [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), compose easily!
-- Optional [React](#react), [Svelte](#svelte), [UnoCSS](#unocss), [Astro](#astro), [Solid](#solid) support
+- Optional [React](#react), [UnoCSS](#unocss) support
 - Optional [formatters](#formatters) support for formatting CSS, HTML, XML, etc.
 - **Style principle**: Minimal for reading, stable for diff, consistent
   - Sorted imports, dangling commas
@@ -142,7 +142,6 @@ Add the following settings to your `.vscode/settings.json`:
     "xml",
     "gql",
     "graphql",
-    "astro",
     "css",
     "less",
     "scss",
@@ -476,63 +475,6 @@ Running `npx eslint` should prompt you to install the required dependencies, oth
 
 ```bash
 npm i -D @eslint-react/eslint-plugin eslint-plugin-react-hooks eslint-plugin-react-refresh
-```
-
-#### Svelte
-
-To enable svelte support, you need to explicitly turn it on:
-
-```js
-// eslint.config.js
-import nika from '@zhangwj0520/eslint-config'
-
-export default nika({
-  svelte: true,
-})
-```
-
-Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
-
-```bash
-npm i -D eslint-plugin-svelte
-```
-
-#### Astro
-
-To enable astro support, you need to explicitly turn it on:
-
-```js
-// eslint.config.js
-import nika from '@zhangwj0520/eslint-config'
-
-export default nika({
-  astro: true,
-})
-```
-
-Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
-
-```bash
-npm i -D eslint-plugin-astro
-```
-
-#### Solid
-
-To enable Solid support, you need to explicitly turn it on:
-
-```js
-// eslint.config.js
-import nika from '@zhangwj0520/eslint-config'
-
-export default nika({
-  solid: true,
-})
-```
-
-Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
-
-```bash
-npm i -D eslint-plugin-solid
 ```
 
 #### UnoCSS

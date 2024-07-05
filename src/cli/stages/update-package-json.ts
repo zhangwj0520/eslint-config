@@ -31,7 +31,6 @@ export async function updatePackageJson(result: PromptResult) {
         case 'formatter':
           (<const>[
             'eslint-plugin-format',
-            result.frameworks.includes('astro') ? 'prettier-plugin-astro' : null,
           ]).forEach((f) => {
             if (!f)
               return

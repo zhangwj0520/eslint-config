@@ -1,5 +1,5 @@
 import { isPackageExists } from 'local-pkg'
-import { GLOB_ASTRO, GLOB_ASTRO_TS, GLOB_CSS, GLOB_GRAPHQL, GLOB_HTML, GLOB_LESS, GLOB_MARKDOWN, GLOB_POSTCSS, GLOB_SCSS, GLOB_XML } from '../globs'
+import { GLOB_CSS, GLOB_GRAPHQL, GLOB_HTML, GLOB_LESS, GLOB_MARKDOWN, GLOB_POSTCSS, GLOB_SCSS, GLOB_XML } from '../globs'
 import type { VendoredPrettierOptions } from '../vender/prettier-types'
 import { ensurePackages, interopDefault, parserPlain } from '../utils'
 import type { OptionsFormatters, StylisticConfig, TypedFlatConfigItem } from '../types'
@@ -11,25 +11,18 @@ export async function formatters(
 ): Promise<TypedFlatConfigItem[]> {
   if (options === true) {
     options = {
-      astro: isPackageExists('prettier-plugin-astro'),
       css: true,
       graphql: true,
       html: true,
       markdown: true,
-      slidev: isPackageExists('@slidev/cli'),
       xml: isPackageExists('@prettier/plugin-xml'),
     }
   }
 
   await ensurePackages([
     'eslint-plugin-format',
-    options.markdown && options.slidev ? 'prettier-plugin-slidev' : undefined,
-    options.astro ? 'prettier-plugin-astro' : undefined,
     options.xml ? '@prettier/plugin-xml' : undefined,
   ])
-
-  if (options.slidev && options.markdown !== true && options.markdown !== 'prettier')
-    throw new Error('`slidev` option only works when `markdown` is enabled with `prettier`')
 
   const {
     indent,
@@ -179,15 +172,9 @@ export async function formatters(
       ? 'prettier'
       : options.markdown
 
-    const GLOB_SLIDEV = !options.slidev
-      ? []
-      : options.slidev === true
-        ? ['**/slides.md']
-        : options.slidev.files
-
     configs.push({
       files: [GLOB_MARKDOWN],
-      ignores: GLOB_SLIDEV,
+      ignores: [],
       languageOptions: {
         parser: parserPlain,
       },
@@ -207,66 +194,6 @@ export async function formatters(
                 language: 'markdown',
               },
         ],
-      },
-    })
-
-    if (options.slidev) {
-      configs.push({
-        files: GLOB_SLIDEV,
-        languageOptions: {
-          parser: parserPlain,
-        },
-        name: 'nika/formatter/slidev',
-        rules: {
-          'format/prettier': [
-            'error',
-            {
-              printWidth: 120,
-              ...prettierOptions,
-              embeddedLanguageFormatting: 'off',
-              parser: 'slidev',
-              plugins: [
-                'prettier-plugin-slidev',
-              ],
-            },
-          ],
-        },
-      })
-    }
-  }
-
-  if (options.astro) {
-    configs.push({
-      files: [GLOB_ASTRO],
-      languageOptions: {
-        parser: parserPlain,
-      },
-      name: 'nika/formatter/astro',
-      rules: {
-        'format/prettier': [
-          'error',
-          {
-            ...prettierOptions,
-            parser: 'astro',
-            plugins: [
-              'prettier-plugin-astro',
-            ],
-          },
-        ],
-      },
-    })
-
-    configs.push({
-      files: [GLOB_ASTRO, GLOB_ASTRO_TS],
-      name: 'antfu/formatter/astro/disables',
-      rules: {
-        'style/arrow-parens': 'off',
-        'style/block-spacing': 'off',
-        'style/comma-dangle': 'off',
-        'style/indent': 'off',
-        'style/no-multi-spaces': 'off',
-        'style/quotes': 'off',
-        'style/semi': 'off',
       },
     })
   }

@@ -100,21 +100,6 @@ export interface OptionsFormatters {
    */
   dprintOptions?: boolean
 
-  /**
-   * Install the prettier plugin for handle Slidev markdown
-   *
-   * Only works when `markdown` is enabled with `prettier`.
-   */
-  slidev?: boolean | {
-    files?: string[]
-  }
-
-  /**
-   * Enable formatting support for Astro.
-   *
-   * Currently only support Prettier.
-   */
-  astro?: 'prettier' | boolean
 }
 
 export interface OptionsComponentExts {
@@ -141,7 +126,7 @@ export interface OptionsTypeScriptParserOptions {
 
   /**
    * Glob patterns for files that should not be type aware.
-   * @default ['**\/*.md\/**', '**\/*.astro/*.ts']
+   * @default ['**\/*.md\/**']
    */
   ignoresTypeAware?: string[]
 }
@@ -274,19 +259,6 @@ export interface OptionsConfig extends OptionsComponentExts {
   toml?: boolean | OptionsOverrides
 
   /**
-   * Enable ASTRO support.
-   *
-   * Requires installing:
-   * - `eslint-plugin-astro`
-   *
-   * Requires installing for formatting .astro:
-   * - `prettier-plugin-astro`
-   *
-   * @default false
-   */
-  astro?: boolean | OptionsOverrides
-
-  /**
    * Enable linting for **code snippets** in Markdown.
    *
    * For formatting Markdown content, enable also `formatters.markdown`.
@@ -322,15 +294,6 @@ export interface OptionsConfig extends OptionsComponentExts {
    * @default false
    */
   react?: boolean | OptionsOverrides
-  /**
-   * Enable solid rules.
-   *
-   * Requires installing:
-   * - `eslint-plugin-solid`
-   *
-   * @default false
-   */
-  solid?: boolean | OptionsOverrides
 
   /**
    * Enable unocss rules.
@@ -383,6 +346,5 @@ export interface OptionsConfig extends OptionsComponentExts {
     yaml?: TypedFlatConfigItem['rules']
     toml?: TypedFlatConfigItem['rules']
     react?: TypedFlatConfigItem['rules']
-    svelte?: TypedFlatConfigItem['rules']
   }
 }

@@ -5,7 +5,6 @@ import { FlatConfigComposer } from 'eslint-flat-config-utils'
 import type { Linter } from 'eslint'
 import type { Awaitable, ConfigNames, OptionsConfig, TypedFlatConfigItem } from './types'
 import {
-  astro,
   command,
   comments,
   ignores,
@@ -18,7 +17,6 @@ import {
   node,
   perfectionist,
   react,
-  solid,
   sortPackageJson,
   sortTsconfig,
   stylistic,
@@ -58,7 +56,6 @@ export const defaultPluginRenaming = {
   '@eslint-react/dom': 'react-dom',
   '@eslint-react/hooks-extra': 'react-hooks-extra',
   '@eslint-react/naming-convention': 'react-naming-convention',
-
   '@stylistic': 'style',
   '@typescript-eslint': 'ts',
   'import-x': 'import',
@@ -82,7 +79,6 @@ export function nika(
   ...userConfigs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[] | FlatConfigComposer<any, any> | Linter.FlatConfig[]>[]
 ): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
   const {
-    astro: enableAstro = false,
     autoRenamePlugins = true,
     componentExts = [],
     gitignore: enableGitignore = true,
@@ -90,7 +86,6 @@ export function nika(
     jsx: enableJsx = true,
     react: enableReact = isPackageExists('react'),
     regexp: enableRegexp = true,
-    solid: enableSolid = false,
     typescript: enableTypeScript = isPackageExists('typescript'),
     unocss: enableUnoCSS = false,
     vue: enableVue = VuePackages.some(i => isPackageExists(i)),
@@ -193,25 +188,10 @@ export function nika(
     }))
   }
 
-  if (enableSolid) {
-    configs.push(solid({
-      overrides: getOverrides(options, 'solid'),
-      tsconfigPath,
-      typescript: !!enableTypeScript,
-    }))
-  }
-
   if (enableUnoCSS) {
     configs.push(unocss({
       ...resolveSubOptions(options, 'unocss'),
       overrides: getOverrides(options, 'unocss'),
-    }))
-  }
-
-  if (enableAstro) {
-    configs.push(astro({
-      overrides: getOverrides(options, 'astro'),
-      stylistic: stylisticOptions,
     }))
   }
 
