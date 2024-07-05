@@ -34,3 +34,8 @@ export default nika(
     },
   },
 )
+  .removeRules(
+    'ts/no-unsafe-member-access',
+    'ts/no-unsafe-argument',
+    'ts/no-unsafe-assignment',
+  )
