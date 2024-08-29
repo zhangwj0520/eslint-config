@@ -9,7 +9,8 @@
     "skipLibCheck": true
   },
   "include": [
-    "**/*.ts"
+    "**/*.ts",
+    "eslint.config.ts"
   ],
   "exclude": [
     "./fixtures/**/*.*",

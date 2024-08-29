@@ -55,6 +55,21 @@ runWithConfig(
   },
 )
 
+// https://github.com/antfu/eslint-config/issues/255
+runWithConfig(
+  'ts-strict',
+  {
+    typescript: {
+      tsconfigPath: './tsconfig.json',
+    },
+  },
+  {
+    rules: {
+      'ts/no-unsafe-return': ['off'],
+    },
+  },
+)
+
 runWithConfig(
   'with-formatters',
   {

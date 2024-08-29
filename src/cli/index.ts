@@ -6,7 +6,7 @@ import * as p from '@clack/prompts'
 import { run } from './run'
 import { pkgJson } from './constants'
 
-function header() {
+function header(): void {
   // eslint-disable-next-line no-console
   console.log('\n')
   p.intro(`${c.green(`@zhangwj0520/eslint-config `)}${c.dim(`v${pkgJson.version}`)}`)
@@ -53,7 +53,7 @@ const instance = yargs(hideBin(process.argv))
   .version('version', pkgJson.version)
   .alias('v', 'version')
 
-// eslint-disable-next-line no-unused-expressions
+// eslint-disable-next-line ts/no-unused-expressions
 instance
   .help()
   .argv

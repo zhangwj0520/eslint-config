@@ -7,6 +7,7 @@ const pkgs = ['eslint-config']
 
 const requestUrls = pkgs.map(item => requestUrl.replace('pkg-name', item))
 
+// eslint-disable-next-line ts/explicit-function-return-type
 async function sync() {
   await Promise.all(requestUrls.map(url => fetch(url, { method: 'PUT' })))
 }
