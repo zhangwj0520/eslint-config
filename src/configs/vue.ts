@@ -43,7 +43,7 @@ export async function vue(
     pluginVueA11y,
   ] = await Promise.all([
     interopDefault(import('eslint-plugin-vue')),
-    interopDefault(import('vue-eslint-parser')),
+    interopDefault(import('vue-eslint-parser')), // 此解析器允许我们对 .vue 文件的 <template> 进行 lint
     interopDefault(import('eslint-processor-vue-blocks')),
     ...a11y ? [interopDefault(import('eslint-plugin-vuejs-accessibility'))] : [],
   ] as const)
@@ -70,7 +70,7 @@ export async function vue(
           watchEffect: 'readonly',
         },
       },
-      name: 'antfu/vue/setup',
+      name: 'zhangwj0520/vue/setup',
       plugins: {
         vue: pluginVue,
         ...a11y ? { 'vue-a11y': pluginVueA11y } : {},
@@ -91,7 +91,7 @@ export async function vue(
           sourceType: 'module',
         },
       },
-      name: 'antfu/vue/rules',
+      name: 'zhangwj0520/vue/rules',
       processor: sfcBlocks === false
         ? pluginVue.processors['.vue']
         : mergeProcessors([
@@ -119,13 +119,12 @@ export async function vue(
               ...pluginVue.configs['flat/recommended'].map(c => c.rules).reduce((acc, c) => ({ ...acc, ...c }), {}) as any,
             },
 
-        'antfu/no-top-level-await': 'off',
         'node/prefer-global/process': 'off',
         'ts/explicit-function-return-type': 'off',
-
         'vue/block-order': ['error', {
           order: ['script', 'template', 'style'],
         }],
+
         'vue/component-name-in-template-casing': ['error', 'PascalCase'],
         'vue/component-options-name-casing': ['error', 'PascalCase'],
         // this is deprecated
@@ -172,6 +171,7 @@ export async function vue(
         'vue/require-prop-types': 'off',
         'vue/space-infix-ops': 'error',
         'vue/space-unary-ops': ['error', { nonwords: false, words: true }],
+        'zhangwj0520/no-top-level-await': 'off',
 
         ...stylistic
           ? {

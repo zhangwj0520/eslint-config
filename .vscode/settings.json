@@ -12,7 +12,7 @@
   "eslint.runtime": "node",
 
   // Silent the stylistic rules in you IDE, but still auto fix them
-  "eslint.rules.customizations": [
+  "-eslint.rules.customizations": [
     { "rule": "style/*", "severity": "off", "fixable": true },
     { "rule": "*-indent", "severity": "off", "fixable": true },
     { "rule": "*-spacing", "severity": "off", "fixable": true },

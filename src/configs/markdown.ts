@@ -18,7 +18,7 @@ export async function markdown(
 
   return [
     {
-      name: 'antfu/markdown/setup',
+      name: 'zhangwj0520/markdown/setup',
       plugins: {
         markdown,
       },
@@ -26,7 +26,7 @@ export async function markdown(
     {
       files,
       ignores: [GLOB_MARKDOWN_IN_MARKDOWN],
-      name: 'antfu/markdown/processor',
+      name: 'zhangwj0520/markdown/processor',
       // `eslint-plugin-markdown` only creates virtual files for code blocks,
       // but not the markdown file itself. We use `eslint-merge-processors` to
       // add a pass-through processor for the markdown file itself.
@@ -40,7 +40,7 @@ export async function markdown(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/markdown/parser',
+      name: 'zhangwj0520/markdown/parser',
     },
     {
       files: [
@@ -54,11 +54,10 @@ export async function markdown(
           },
         },
       },
-      name: 'antfu/markdown/disables',
+      name: 'zhangwj0520/markdown/disables',
       rules: {
-        'antfu/no-top-level-await': 'off',
-
         'no-alert': 'off',
+
         'no-console': 'off',
         'no-labels': 'off',
         'no-lone-blocks': 'off',
@@ -67,14 +66,14 @@ export async function markdown(
         'no-unused-expressions': 'off',
         'no-unused-labels': 'off',
         'no-unused-vars': 'off',
-
         'node/prefer-global/process': 'off',
 
         'style/comma-dangle': 'off',
+
         'style/eol-last': 'off',
         'style/padding-line-between-statements': 'off',
-
         'ts/consistent-type-imports': 'off',
+
         'ts/explicit-function-return-type': 'off',
         'ts/no-namespace': 'off',
         'ts/no-redeclare': 'off',
@@ -82,10 +81,11 @@ export async function markdown(
         'ts/no-unused-expressions': 'off',
         'ts/no-unused-vars': 'off',
         'ts/no-use-before-define': 'off',
-
         'unicode-bom': 'off',
+
         'unused-imports/no-unused-imports': 'off',
         'unused-imports/no-unused-vars': 'off',
+        'zhangwj0520/no-top-level-await': 'off',
 
         ...overrides,
       },

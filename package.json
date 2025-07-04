@@ -1,7 +1,7 @@
 {
-  "name": "@antfu/eslint-config",
+  "name": "@zhangwj0520/eslint-config",
   "type": "module",
-  "version": "4.16.2",
+  "version": "0.1.0",
   "packageManager": "pnpm@10.12.4",
   "description": "Anthony's ESLint config",
   "author": "Anthony Fu <anthonyfu117@hotmail.com> (https://github.com/antfu/)",
@@ -142,13 +142,13 @@
     "yaml-eslint-parser": "catalog:prod"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "workspace:*",
     "@antfu/ni": "catalog:dev",
     "@eslint-react/eslint-plugin": "catalog:peer",
     "@eslint/config-inspector": "catalog:dev",
     "@prettier/plugin-xml": "catalog:peer",
     "@types/node": "catalog:dev",
     "@unocss/eslint-plugin": "catalog:peer",
+    "@zhangwj0520/eslint-config": "workspace:*",
     "astro-eslint-parser": "catalog:peer",
     "bumpp": "catalog:dev",
     "eslint": "catalog:peer",
