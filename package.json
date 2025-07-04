@@ -3,17 +3,17 @@
   "type": "module",
   "version": "0.1.0",
   "packageManager": "pnpm@10.12.4",
-  "description": "Anthony's ESLint config",
-  "author": "Anthony Fu <anthonyfu117@hotmail.com> (https://github.com/antfu/)",
+  "description": "zhangweijie's ESLint config",
+  "author": "zhangweijie <zhangwj0520@hotmail.com> (https://github.com/zhangwj0520/)",
   "license": "MIT",
-  "funding": "https://github.com/sponsors/antfu",
-  "homepage": "https://github.com/antfu/eslint-config",
+  "funding": "https://github.com/sponsors/zhangwj0520",
+  "homepage": "https://github.com/zhangwj0520/eslint-config",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antfu/eslint-config.git"
+    "url": "git+https://github.com/zhangwj0520/eslint-config.git"
   },
   "bugs": {
-    "url": "https://github.com/antfu/eslint-config/issues"
+    "url": "https://github.com/zhangwj0520/eslint-config/issues"
   },
   "keywords": [
     "eslint-config"
