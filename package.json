@@ -1,7 +1,7 @@
 {
   "name": "@zhangwj0520/eslint-config",
   "type": "module",
-  "version": "0.1.1",
+  "version": "0.0.9",
   "packageManager": "pnpm@10.12.4",
   "description": "zhangweijie's ESLint config",
   "author": "zhangweijie <zhangwj0520@hotmail.com> (https://github.com/zhangwj0520/)",
