@@ -1,10 +1,10 @@
-/* eslint-disable antfu/no-top-level-await */
 import fs from 'node:fs/promises'
-
+/* eslint-disable antfu/no-top-level-await */
 import { flatConfigsToRulesDTS } from 'eslint-typegen/core'
+
 import { builtinRules } from 'eslint/use-at-your-own-risk'
 
-import { astro, combine, comments, formatters, imports, javascript, jsdoc, jsonc, jsx, markdown, node, perfectionist, react, regexp, solid, sortPackageJson, stylistic, svelte, test, toml, typescript, unicorn, unocss, vue, yaml } from '../src'
+import { astro, combine, comments, formatters, imports, javascript, jsdoc, jsonc, jsx, markdown, node, perfectionist, react, regexp, solid, sortPackageJson, stylistic, svelte, tailwindcss, test, toml, typescript, unicorn, unocss, vue, yaml } from '../src'
 
 const configs = await combine(
   {
@@ -36,6 +36,7 @@ const configs = await combine(
   typescript(),
   unicorn(),
   unocss(),
+  tailwindcss(),
   vue(),
   yaml(),
 )

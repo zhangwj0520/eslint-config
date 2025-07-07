@@ -1,6 +1,6 @@
 # @zhangwj0520/eslint-config
 
-[![npm](https://img.shields.io/npm/v/@zhangwj0520/eslint-config?color=444&label=)](https://npmjs.com/package/@zhangwj0520/eslint-config) [![code style](https://antfu.me/badge-code-style.svg)](https://github.com/antfu/eslint-config)
+[![npm](https://img.shields.io/npm/v/@zhangwj0520/eslint-config?color=444&label=)](https://npmjs.com/package/@zhangwj0520/eslint-config)
 
 - 自动修复格式（旨在独立使用 ，无需 Prettier）
 - 合理的默认值、最佳实践、仅一行配置
