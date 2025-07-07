@@ -231,6 +231,18 @@ export interface OptionsUnoCSS extends OptionsOverrides {
    */
   strict?: boolean
 }
+export interface OptionsTailwindCSS extends OptionsOverrides {
+  /**
+   * Enable attributify support.
+   * @default true
+   */
+  attributify?: boolean
+  /**
+   * Enable strict mode by throwing errors about blocklisted classes.
+   * @default false
+   */
+  strict?: boolean
+}
 
 export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType {
   /**
@@ -404,6 +416,16 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
    * @default false
    */
   unocss?: boolean | OptionsUnoCSS
+
+  /**
+   * Enable tailwindcss rules.
+   *
+   * Requires installing:
+   * - `eslint-plugin-tailwindcss`
+   *
+   * @default false
+   */
+  tailwindcss?: boolean | OptionsTailwindCSS
 
   /**
    * Enable pnpm (workspace/catalogs) support.

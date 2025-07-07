@@ -1,3 +1,4 @@
+/* eslint-disable antfu/no-top-level-await */
 import fs from 'node:fs/promises'
 
 import { flatConfigsToRulesDTS } from 'eslint-typegen/core'

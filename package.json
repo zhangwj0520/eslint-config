@@ -54,6 +54,7 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "eslint-plugin-solid": "^0.14.3",
     "eslint-plugin-svelte": ">=2.35.1",
+    "eslint-plugin-tailwindcss": "^3.18.0",
     "eslint-plugin-vuejs-accessibility": "^2.4.1",
     "prettier-plugin-astro": "^0.14.0",
     "prettier-plugin-slidev": "^1.0.5",
@@ -88,6 +89,9 @@
       "optional": true
     },
     "eslint-plugin-svelte": {
+      "optional": true
+    },
+    "eslint-plugin-tailwindcss": {
       "optional": true
     },
     "eslint-plugin-vuejs-accessibility": {
@@ -146,6 +150,7 @@
     "@eslint-react/eslint-plugin": "catalog:peer",
     "@eslint/config-inspector": "catalog:dev",
     "@prettier/plugin-xml": "catalog:peer",
+    "@types/eslint-plugin-tailwindcss": "catalog:",
     "@types/node": "catalog:dev",
     "@unocss/eslint-plugin": "catalog:peer",
     "@zhangwj0520/eslint-config": "workspace:*",
@@ -158,6 +163,7 @@
     "eslint-plugin-react-refresh": "catalog:peer",
     "eslint-plugin-solid": "catalog:peer",
     "eslint-plugin-svelte": "catalog:peer",
+    "eslint-plugin-tailwindcss": "catalog:peer",
     "eslint-plugin-vuejs-accessibility": "catalog:peer",
     "eslint-typegen": "catalog:dev",
     "execa": "catalog:dev",

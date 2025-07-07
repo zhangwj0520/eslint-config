@@ -25,6 +25,7 @@ import {
   sortTsconfig,
   stylistic,
   svelte,
+  tailwindcss,
   test,
   toml,
   typescript,
@@ -94,6 +95,7 @@ export function defineConfig(
     regexp: enableRegexp = true,
     solid: enableSolid = false,
     svelte: enableSvelte = false,
+    tailwindcss: enableTailWindCSS = isPackageExists('tailwindcss'),
     typescript: enableTypeScript = isPackageExists('typescript'),
     unicorn: enableUnicorn = true,
     unocss: enableUnoCSS = false,
@@ -248,6 +250,12 @@ export function defineConfig(
     configs.push(unocss({
       ...resolveSubOptions(options, 'unocss'),
       overrides: getOverrides(options, 'unocss'),
+    }))
+  }
+  if (enableTailWindCSS) {
+    configs.push(tailwindcss({
+      ...resolveSubOptions(options, 'tailwindcss'),
+      overrides: getOverrides(options, 'tailwindcss'),
     }))
   }
 
