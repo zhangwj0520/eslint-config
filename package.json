@@ -1,7 +1,7 @@
 {
   "name": "@zhangwj0520/eslint-config",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "packageManager": "pnpm@10.12.4",
   "description": "zhangweijie's ESLint config",
   "author": "zhangweijie <zhangwj0520@hotmail.com> (https://github.com/zhangwj0520/)",
@@ -45,6 +45,7 @@
   "peerDependencies": {
     "@eslint-react/eslint-plugin": "^1.38.4",
     "@prettier/plugin-xml": "^3.4.1",
+    "@types/eslint-plugin-tailwindcss": "^3.17.0",
     "@unocss/eslint-plugin": ">=0.50.0",
     "astro-eslint-parser": "^1.0.2",
     "eslint": "^9.10.0",
@@ -54,6 +55,7 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "eslint-plugin-solid": "^0.14.3",
     "eslint-plugin-svelte": ">=2.35.1",
+    "eslint-plugin-tailwindcss": "^3.18.0",
     "eslint-plugin-vuejs-accessibility": "^2.4.1",
     "prettier-plugin-astro": "^0.14.0",
     "prettier-plugin-slidev": "^1.0.5",
@@ -64,6 +66,9 @@
       "optional": true
     },
     "@prettier/plugin-xml": {
+      "optional": true
+    },
+    "@types/eslint-plugin-tailwindcss": {
       "optional": true
     },
     "@unocss/eslint-plugin": {
@@ -88,6 +93,9 @@
       "optional": true
     },
     "eslint-plugin-svelte": {
+      "optional": true
+    },
+    "eslint-plugin-tailwindcss": {
       "optional": true
     },
     "eslint-plugin-vuejs-accessibility": {
@@ -146,6 +154,7 @@
     "@eslint-react/eslint-plugin": "catalog:peer",
     "@eslint/config-inspector": "catalog:dev",
     "@prettier/plugin-xml": "catalog:peer",
+    "@types/eslint-plugin-tailwindcss": "catalog:peer",
     "@types/node": "catalog:dev",
     "@unocss/eslint-plugin": "catalog:peer",
     "@zhangwj0520/eslint-config": "workspace:*",
@@ -158,6 +167,7 @@
     "eslint-plugin-react-refresh": "catalog:peer",
     "eslint-plugin-solid": "catalog:peer",
     "eslint-plugin-svelte": "catalog:peer",
+    "eslint-plugin-tailwindcss": "catalog:peer",
     "eslint-plugin-vuejs-accessibility": "catalog:peer",
     "eslint-typegen": "catalog:dev",
     "execa": "catalog:dev",

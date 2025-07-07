@@ -25,6 +25,7 @@ export default defineConfig(
     files: ['src/**/*.ts'],
     rules: {
       'perfectionist/sort-objects': 'error',
+      'antfu/no-top-level-await': 'off',
     },
   },
 )

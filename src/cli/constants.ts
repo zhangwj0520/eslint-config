@@ -1,5 +1,4 @@
 import type { ExtraLibrariesOption, FrameworkOption, PromItem } from './types'
-
 import c from 'ansis'
 
 export const vscodeSettingsString = `
@@ -122,6 +121,9 @@ export const dependenciesMap = {
   svelte: [
     'eslint-plugin-svelte',
     'svelte-eslint-parser',
+  ],
+  tailwindcss: [
+    'eslint-plugin-tailwindcss',
   ],
   unocss: [
     '@unocss/eslint-plugin',

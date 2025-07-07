@@ -1,3 +1,4 @@
+/* eslint-disable antfu/no-top-level-await */
 import fs from 'node:fs/promises'
 import { parsePnpmWorkspaceYaml } from 'pnpm-workspace-yaml'
 import { dependenciesMap } from '../src/cli/constants'
