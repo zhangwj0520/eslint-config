@@ -25,7 +25,6 @@ import {
   sortTsconfig,
   stylistic,
   svelte,
-  tailwindcss,
   test,
   toml,
   typescript,
@@ -253,10 +252,10 @@ export function defineConfig(
     }))
   }
   if (enableTailWindCSS) {
-    configs.push(tailwindcss({
-      ...resolveSubOptions(options, 'tailwindcss'),
-      overrides: getOverrides(options, 'tailwindcss'),
-    }))
+    // configs.push(tailwindcss({
+    //   ...resolveSubOptions(options, 'tailwindcss'),
+    //   overrides: getOverrides(options, 'tailwindcss'),
+    // }))
   }
 
   if (enableAstro) {
