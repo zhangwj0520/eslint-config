@@ -2,54 +2,41 @@
 
 [![npm](https://img.shields.io/npm/v/@zhangwj0520/eslint-config?color=444&label=)](https://npmjs.com/package/@zhangwj0520/eslint-config) [![code style](https://antfu.me/badge-code-style.svg)](https://github.com/antfu/eslint-config)
 
-- Auto fix for formatting (aimed to be used standalone **without** Prettier)
-- Reasonable defaults, best practices, only one line of config
-- Designed to work with TypeScript, JSX, Vue, JSON, YAML, Toml, Markdown, etc. Out-of-box.
-- Opinionated, but [very customizable](#customization)
-- [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), compose easily!
-- Optional [React](#react), [Svelte](#svelte), [UnoCSS](#unocss), [Astro](#astro), [Solid](#solid) support
-- Optional [formatters](#formatters) support for formatting CSS, HTML, XML, etc.
-- **Style principle**: Minimal for reading, stable for diff, consistent
-  - Sorted imports, dangling commas
-  - Single quotes, no semi
-  - Using [ESLint Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
-- Respects `.gitignore` by default
-- Requires ESLint v9.5.0+
+- 自动修复格式（旨在独立使用 ，无需 Prettier）
+- 合理的默认值、最佳实践、仅一行配置
+- 开箱即用，支持 TypeScript、JSX、Vue、JSON、YAML、Toml、Markdown 等
+- 有主见，但[高度可定制](#customization)
+- [ESLint Flat 配置](https://eslint.org/docs/latest/use/configure/configuration-files-new)，轻松组合！
+- 可选支持 [React](#react)、[Svelte](#svelte)、[UnoCSS](#unocss)、[Astro](#astro)、[Solid](#solid)
+- 可选支持 [formatters](#formatters) 格式化 CSS、HTML、XML 等
+- **风格原则**：阅读最简，diff 稳定，风格一致
+  - 导入排序，尾随逗号
+  - 单引号，无分号
+  - 使用 [ESLint Stylistic](https://github.com/eslint-stylistic/eslint-stylistic)
+- 默认遵循 `.gitignore`
+- 需要 ESLint v9.5.0+
 
 > [!NOTE]
-> Since v1.0.0, this config is rewritten to the new [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new), check the [release note](https://github.com/antfu/eslint-config/releases/tag/v1.0.0) for more details.
+> 本配置默认为新的 [ESLint Flat 配置](https://eslint.org/docs/latest/use/configure/configuration-files-new)。
 >
-> Since v3.0.0, ESLint v9.5.0+ is now required.
-
 > [!WARNING]
-> I am super appreciative and even a bit flattered that so many of you are fond of using this config. For that reason, I tried to make it as flexible and customizable as possible to fit more use cases.
+> 很感谢大家喜欢这个配置，也很荣幸。为此我尽量让它更灵活、可定制，以适配更多场景。
 >
-> However, please keep in mind that this is still **_a personal config_** with a lot of opinions. Changes might not always work for everyone and every use case.
+> 但请记住，这仍然是**个人配置**，有很多主观意见。变更未必适合所有人和所有场景。
 >
-> If you are using this config directly, I suggest you **review the changes every time you update**. Or if you want more control over the rules, always feel free to fork it. Thanks!
+> 如果你直接使用本配置，建议**每次升级都检查变更**。如需更强控制权，欢迎 fork。谢谢！
 
-> [!TIP]
-> If you are interested in the tooling and the philosophy behind this config, I gave a talk about ESLint flat config at [JSNation 2024 - ESLint One for All Made Easy](https://gitnation.com/contents/eslint-one-for-all-made-easy), slides are [here](https://talks.antfu.me/2024/jsnation).
+## 使用方法
 
-## Usage
+### 手动安装
 
-### Starter Wizard
-
-We provided a CLI tool to help you set up your project, or migrate from the legacy config to the new flat config with one command.
-
-```bash
-pnpm dlx @zhangwj0520/eslint-config@latest
-```
-
-### Manual Install
-
-If you prefer to set up manually:
+如果你喜欢手动配置：
 
 ```bash
 pnpm i -D eslint @zhangwj0520/eslint-config
 ```
 
-And create `eslint.config.mjs` in your project root:
+然后在项目根目录创建 `eslint.config.mjs`：
 
 ```js
 // eslint.config.mjs
@@ -58,44 +45,9 @@ import defineConfig from '@zhangwj0520/eslint-config'
 export default defineConfig()
 ```
 
-<details>
-<summary>
-Combined with legacy config:
-</summary>
+### package.json 脚本
 
-If you still use some configs from the legacy eslintrc format, you can use the [`@eslint/eslintrc`](https://www.npmjs.com/package/@eslint/eslintrc) package to convert them to the flat config.
-
-```js
-import { FlatCompat } from '@eslint/eslintrc'
-// eslint.config.mjs
-import defineConfig from '@zhangwj0520/eslint-config'
-
-const compat = new FlatCompat()
-
-export default defineConfig(
-  {
-    ignores: [],
-  },
-
-  // Legacy config
-  ...compat.config({
-    extends: [
-      'eslint:recommended',
-      // Other extends...
-    ],
-  })
-
-  // Other flat configs...
-)
-```
-
-> Note that `.eslintignore` no longer works in Flat config, see [customization](#customization) for more details.
-
-</details>
-
-### Add script for package.json
-
-For example:
+例如：
 
 ```json
 {
@@ -106,30 +58,30 @@ For example:
 }
 ```
 
-## IDE Support (auto fix on save)
+## IDE 支持（保存时自动修复）
 
 <details>
-<summary>🟦 VS Code support</summary>
+<summary>🟦 VS Code 支持</summary>
 
 <br>
 
-Install [VS Code ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+安装 [VS Code ESLint 扩展](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
-Add the following settings to your `.vscode/settings.json`:
+在 `.vscode/settings.json` 中添加如下设置：
 
 ```jsonc
 {
-  // Disable the default formatter, use eslint instead
+  // 禁用默认格式化器，改用 eslint
   "prettier.enable": false,
   "editor.formatOnSave": false,
 
-  // Auto fix
+  // 自动修复
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never"
   },
 
-  // Silent the stylistic rules in you IDE, but still auto fix them
+  // 在 IDE 中静默风格规则，但仍自动修复
   "eslint.rules.customizations": [
     { "rule": "style/*", "severity": "off", "fixable": true },
     { "rule": "format/*", "severity": "off", "fixable": true },
@@ -143,7 +95,7 @@ Add the following settings to your `.vscode/settings.json`:
     { "rule": "*semi", "severity": "off", "fixable": true }
   ],
 
-  // Enable eslint for all supported languages
+  // 启用所有支持语言的 eslint
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -172,93 +124,11 @@ Add the following settings to your `.vscode/settings.json`:
 
 </details>
 
-<details>
-<summary>🟩 Neovim Support</summary>
+## 自定义
 
-<br>
+[ESLint Flat 配置](https://eslint.org/docs/latest/use/configure/configuration-files-new)。它提供了更好的组织和组合方式。
 
-Update your configuration to use the following:
-
-```lua
-local customizations = {
-  { rule = 'style/*', severity = 'off', fixable = true },
-  { rule = 'format/*', severity = 'off', fixable = true },
-  { rule = '*-indent', severity = 'off', fixable = true },
-  { rule = '*-spacing', severity = 'off', fixable = true },
-  { rule = '*-spaces', severity = 'off', fixable = true },
-  { rule = '*-order', severity = 'off', fixable = true },
-  { rule = '*-dangle', severity = 'off', fixable = true },
-  { rule = '*-newline', severity = 'off', fixable = true },
-  { rule = '*quotes', severity = 'off', fixable = true },
-  { rule = '*semi', severity = 'off', fixable = true },
-}
-
-local lspconfig = require('lspconfig')
--- Enable eslint for all supported languages
-lspconfig.eslint.setup(
-  {
-    filetypes = {
-      "javascript",
-      "javascriptreact",
-      "javascript.jsx",
-      "typescript",
-      "typescriptreact",
-      "typescript.tsx",
-      "vue",
-      "html",
-      "markdown",
-      "json",
-      "jsonc",
-      "yaml",
-      "toml",
-      "xml",
-      "gql",
-      "graphql",
-      "astro",
-      "svelte",
-      "css",
-      "less",
-      "scss",
-      "pcss",
-      "postcss"
-    },
-    settings = {
-      -- Silent the stylistic rules in you IDE, but still auto fix them
-      rulesCustomizations = customizations,
-    },
-  }
-)
-```
-
-### Neovim format on save
-
-There's few ways you can achieve format on save in neovim:
-
-- `nvim-lspconfig` has a `EslintFixAll` command predefined, you can create a autocmd to call this command after saving file.
-
-```lua
-lspconfig.eslint.setup({
-  --- ...
-  on_attach = function(client, bufnr)
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = bufnr,
-      command = "EslintFixAll",
-    })
-  end,
-})
-```
-
-- Use [conform.nvim](https://github.com/stevearc/conform.nvim).
-- Use [none-ls](https://github.com/nvimtools/none-ls.nvim)
-- Use [nvim-lint](https://github.com/mfussenegger/nvim-lint)
-
-</details>
-
-## Customization
-
-Since v1.0, we migrated to [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new). It provides much better organization and composition.
-
-Normally you only need to import the `antfu` preset:
+通常你只需导入 `defineConfig` 预设：
 
 ```js
 // eslint.config.js
@@ -267,34 +137,34 @@ import defineConfig from '@zhangwj0520/eslint-config'
 export default defineConfig()
 ```
 
-And that's it! Or you can configure each integration individually, for example:
+就可以了！或者你可以单独配置每个集成，例如：
 
 ```js
 // eslint.config.js
 import defineConfig from '@zhangwj0520/eslint-config'
 
 export default defineConfig({
-// Type of the project. 'lib' for libraries, the default is 'app'
+// 项目类型。库使用 'lib'，默认是 'app'
   type: 'lib',
 
-  // Enable stylistic formatting rules
+  // 启用风格格式化规则
   // stylistic: true,
 
-  // Or customize the stylistic rules
+  // 或自定义风格规则
   stylistic: {
-    indent: 2, // 4, or 'tab'
-    quotes: 'single', // or 'double'
+    indent: 2, // 4 或 'tab'
+    quotes: 'single', // 或 'double'
   },
 
-  // TypeScript and Vue are autodetected, you can also explicitly enable them:
+  // TypeScript 和 Vue 会自动检测，你也可以显式启用：
   typescript: true,
   vue: true,
 
-  // Disable jsonc and yaml support
+  // 禁用 jsonc 和 yaml 支持
   jsonc: false,
   yaml: false,
 
-  // `.eslintignore` is no longer supported in Flat config, use `ignores` instead
+  // `.eslintignore` 在 Flat 配置中不再受支持，请改用 `ignores`
   ignores: [
     '**/fixtures',
     // ...globs
@@ -302,7 +172,7 @@ export default defineConfig({
 })
 ```
 
-The `defineConfig` factory function also accepts any number of arbitrary custom config overrides:
+`defineConfig` 工厂函数还接受任意数量的任意自定义配置覆盖：
 
 ```js
 // eslint.config.js
@@ -310,11 +180,11 @@ import defineConfig from '@zhangwj0520/eslint-config'
 
 export default defineConfig(
   {
-    // Configures for defineConfig's config
+    // defineConfig 的配置
   },
 
-  // From the second arguments they are ESLint Flat Configs
-  // you can have multiple configs
+  // 从第二个参数开始是 ESLint Flat 配置
+  // 你可以有多个配置
   {
     files: ['**/*.ts'],
     rules: {},
@@ -325,12 +195,12 @@ export default defineConfig(
 )
 ```
 
-Going more advanced, you can also import fine-grained configs and compose them as you wish:
+更高级的用法是，你还可以导入细粒度的配置并按需组合：
 
 <details>
-<summary>Advanced Example</summary>
+<summary>高级示例</summary>
 
-We wouldn't recommend using this style in general unless you know exactly what they are doing, as there are shared options between configs and might need extra care to make them consistent.
+我们一般不建议以这种风格使用，除非你确切知道它们在做什么，因为配置之间有共享选项，可能需要额外的注意以保持一致。
 
 ```js
 // eslint.config.js
@@ -374,17 +244,17 @@ export default combine(
 
 </details>
 
-Check out the [configs](https://github.com/antfu/eslint-config/blob/main/src/configs) and [factory](https://github.com/antfu/eslint-config/blob/main/src/factory.ts) for more details.
+查看 [configs](https://github.com/antfu/eslint-config/blob/main/src/configs) 和 [factory](https://github.com/antfu/eslint-config/blob/main/src/factory.ts) 获取更多细节。
 
-> Thanks to [sxzz/eslint-config](https://github.com/sxzz/eslint-config) for the inspiration and reference.
+> 感谢 [sxzz/eslint-config](https://github.com/sxzz/eslint-config) 的启发和参考。
 
-### Plugins Renaming
+### 插件重命名
 
-Since flat config requires us to explicitly provide the plugin names (instead of the mandatory convention from npm package name), we renamed some plugins to make the overall scope more consistent and easier to write.
+由于 flat 配置要求我们显式提供插件名称（而不是 npm 包名称的强制约定），我们重命名了一些插件，以使整体范围更一致，更易于书写。
 
-| New Prefix | Original Prefix        | Source Plugin                                                                              |
+| 新前缀     | 原前缀                 | 源插件                                                                                     |
 | ---------- | ---------------------- | ------------------------------------------------------------------------------------------ |
-| `import/*` | `import-lite/*`        | [eslint-plugin-import-lite](https://github.com/9romise/eslint-plugin-import-lite)          |
+| `import/*` | `import-lite/*`        | [eslint-plugin-import-lite](https://github.com/9promise/eslint-plugin-import-lite)         |
 | `node/*`   | `n/*`                  | [eslint-plugin-n](https://github.com/eslint-community/eslint-plugin-n)                     |
 | `yaml/*`   | `yml/*`                | [eslint-plugin-yml](https://github.com/ota-meshi/eslint-plugin-yml)                        |
 | `ts/*`     | `@typescript-eslint/*` | [@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint) |
@@ -392,7 +262,7 @@ Since flat config requires us to explicitly provide the plugin names (instead of
 | `test/*`   | `vitest/*`             | [@vitest/eslint-plugin](https://github.com/vitest-dev/eslint-plugin-vitest)                |
 | `test/*`   | `no-only-tests/*`      | [eslint-plugin-no-only-tests](https://github.com/levibuzolic/eslint-plugin-no-only-tests)  |
 
-When you want to override rules, or disable them inline, you need to update to the new prefix:
+当你想要覆盖规则或内联禁用它们时，你需要更新为新前缀：
 
 ```diff
 -// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
@@ -401,20 +271,20 @@ type foo = { bar: 2 }
 ```
 
 > [!NOTE]
-> About plugin renaming - it is actually rather a dangrous move that might leading to potential naming collisions, pointed out [here](https://github.com/eslint/eslint/discussions/17766) and [here](https://github.com/prettier/eslint-config-prettier#eslintconfigjs-flat-config-plugin-caveat). As this config also very **personal** and **opinionated**, I ambitiously position this config as the only **"top-level"** config per project, that might pivots the taste of how rules are named.
+> 关于插件重命名 - 这实际上是一个相当危险的举动，可能导致潜在的命名冲突，详见 [这里](https://github.com/eslint/eslint/discussions/17766) 和 [这里](https://github.com/prettier/eslint-config-prettier#eslintconfigjs-flat-config-plugin-caveat)。由于本配置也非常**个人化**和**有观点**，我雄心勃勃地将其定位为每个项目唯一的**"顶级"**配置，这可能会影响规则命名的方式。
 >
-> This config cares more about the user-facings DX, and try to ease out the implementation details. For example, users could keep using the semantic `import/order` without ever knowing the underlying plugin has migrated twice to `eslint-plugin-i` and then to `eslint-plugin-import-x`. User are also not forced to migrate to the implicit `i/order` halfway only because we swapped the implementation to a fork.
+> 本配置更关心用户体验，尽量简化实现细节。例如，用户可以继续使用语义化的 `import/order`，而无需了解底层插件已两次迁移到 `eslint-plugin-i`，然后迁移到 `eslint-plugin-import-x`。用户也不必在中途迁移到隐式的 `i/order`，仅仅因为我们将实现切换到了一个分支。
 >
-> That said, it's probably still not a good idea. You might not want to doing this if you are maintaining your own eslint config.
+> 也就是说，这可能仍然不是一个好主意。如果你维护自己的 eslint 配置，可能不想这样做。
 >
-> Feel free to open issues if you want to combine this config with some other config presets but faced naming collisions. I am happy to figure out a way to make them work. But at this moment I have no plan to revert the renaming.
+> 如果你在将此配置与其他某些配置预设结合使用时遇到命名冲突，欢迎提出问题。我很乐意想办法使它们兼容。但目前我没有计划撤销重命名。
 
-Since v2.9.0, this preset will automatically rename the plugins also for your custom configs. You can use the original prefix to override the rules directly.
+此预设将自动为你的自定义配置重命名插件。你可以使用原始前缀直接覆盖规则。
 
 <details>
-<summary>Change back to original prefix</summary>
+<summary>恢复为原始前缀</summary>
 
-If you really want to use the original prefix, you can revert the plugin renaming by:
+如果你真的想使用原始前缀，可以通过以下方式恢复插件重命名：
 
 ```ts
 import defineConfig from '@zhangwj0520/eslint-config'
@@ -430,9 +300,9 @@ export default defineConfig()
 
 </details>
 
-### Rules Overrides
+### 规则覆盖
 
-Certain rules would only be enabled in specific files, for example, `ts/*` rules would only be enabled in `.ts` files and `vue/*` rules would only be enabled in `.vue` files. If you want to override the rules, you need to specify the file extension:
+某些规则仅在特定文件中启用，例如，`ts/*` 规则仅在 `.ts` 文件中启用，`vue/*` 规则仅在 `.vue` 文件中启用。如果你想覆盖规则，需要指定文件扩展名：
 
 ```js
 // eslint.config.js
@@ -444,14 +314,14 @@ export default defineConfig(
     typescript: true
   },
   {
-    // Remember to specify the file glob here, otherwise it might cause the vue plugin to handle non-vue files
+    // 请记得在此处指定文件 glob，否则可能导致 vue 插件处理非 vue 文件
     files: ['**/*.vue'],
     rules: {
       'vue/operator-linebreak': ['error', 'before'],
     },
   },
   {
-    // Without `files`, they are general rules for all files
+    // 没有 `files`，则是所有文件的通用规则
     rules: {
       'style/semi': ['error', 'never'],
     },
@@ -459,7 +329,7 @@ export default defineConfig(
 )
 ```
 
-We also provided the `overrides` options in each integration to make it easier:
+我们还为每个集成提供了 `overrides` 选项，以便更轻松地进行配置：
 
 ```js
 // eslint.config.js
@@ -484,9 +354,9 @@ export default defineConfig({
 })
 ```
 
-### Config Composer
+### 配置组合器
 
-Since v2.10.0, the factory function `antfu()` returns a [`FlatConfigComposer` object from `eslint-flat-config-utils`](https://github.com/antfu/eslint-flat-config-utils#composer) where you can chain the methods to compose the config even more flexibly.
+工厂函数 `defineConfig()` 返回一个 [`FlatConfigComposer` object from `eslint-flat-config-utils`](https://github.com/antfu/eslint-flat-config-utils#composer)，你可以链式调用这些方法以更灵活地组合配置。
 
 ```js
 // eslint.config.js
@@ -494,9 +364,9 @@ import defineConfig from '@zhangwj0520/eslint-config'
 
 export default defineConfig()
   .prepend(
-    // some configs before the main config
+    // 一些主配置之前的配置
   )
-  // overrides any named configs
+  // 覆盖任何命名的配置
   .override(
     'zhangwj0520/stylistic/rules',
     {
@@ -505,7 +375,7 @@ export default defineConfig()
       }
     }
   )
-  // rename plugin prefixes
+  // 重命名插件前缀
   .renamePlugins({
     'old-prefix': 'new-prefix',
     // ...
@@ -515,7 +385,7 @@ export default defineConfig()
 
 ### Vue
 
-Vue support is detected automatically by checking if `vue` is installed in your project. You can also explicitly enable/disable it:
+Vue 支持会通过检查项目中是否安装了 `vue` 自动检测。你也可以显式启用/禁用它：
 
 ```js
 // eslint.config.js
@@ -528,7 +398,7 @@ export default defineConfig({
 
 #### Vue 2
 
-We have limited support for Vue 2 (as it's already [reached EOL](https://v2.vuejs.org/eol/)). If you are still using Vue 2, you can configure it manually by setting `vueVersion` to `2`:
+我们对 Vue 2 的支持有限（因为它已经[结束生命周期](https://v2.vuejs.org/eol/)）。如果你仍在使用 Vue 2，可以通过将 `vueVersion` 设置为 `2` 来手动配置：
 
 ```js
 // eslint.config.js
@@ -541,11 +411,11 @@ export default defineConfig({
 })
 ```
 
-As it's in maintenance mode, we only accept bug fixes for Vue 2. It might also be removed in the future when `eslint-plugin-vue` drops support for Vue 2. We recommend upgrading to Vue 3 if possible.
+由于 Vue 2 处于维护模式，我们只接受错误修复。建议尽可能升级到 Vue 3。
 
-#### Vue Accessibility
+#### Vue 可访问性
 
-To enable Vue accessibility support, you need to explicitly turn it on:
+要启用 Vue 可访问性支持，你需要显式开启：
 
 ```js
 // eslint.config.js
@@ -558,19 +428,19 @@ export default defineConfig({
 })
 ```
 
-Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
+运行 `npx eslint` 时应该会提示你安装所需的依赖项，否则你可以手动安装：
 
 ```bash
 npm i -D eslint-plugin-vuejs-accessibility
 ```
 
-### Optional Configs
+### 可选配置
 
-We provide some optional configs for specific use cases, that we don't include their dependencies by default.
+我们提供了一些可选配置，以满足特定用例，但默认不包括它们的依赖。
 
-#### Formatters
+#### 格式化工具
 
-Use external formatters to format files that ESLint cannot handle yet (`.css`, `.html`, etc). Powered by [`eslint-plugin-format`](https://github.com/antfu/eslint-plugin-format).
+使用外部格式化工具格式化 ESLint 尚不支持的文件（`.css`、`.html` 等）。由 [`eslint-plugin-format`](https://github.com/antfu/eslint-plugin-format) 提供支持。
 
 ```js
 // eslint.config.js
@@ -579,26 +449,26 @@ import defineConfig from '@zhangwj0520/eslint-config'
 export default defineConfig({
   formatters: {
     /**
-     * Format CSS, LESS, SCSS files, also the `<style>` blocks in Vue
-     * By default uses Prettier
+     * 格式化 CSS、LESS、SCSS 文件，以及 Vue 中的 `<style>` 块
+     * 默认使用 Prettier
      */
     css: true,
     /**
-     * Format HTML files
-     * By default uses Prettier
+     * 格式化 HTML 文件
+     * 默认使用 Prettier
      */
     html: true,
     /**
-     * Format Markdown files
-     * Supports Prettier and dprint
-     * By default uses Prettier
+     * 格式化 Markdown 文件
+     * 支持 Prettier 和 dprint
+     * 默认使用 Prettier
      */
     markdown: 'prettier'
   }
 })
 ```
 
-Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
+运行 `npx eslint` 时应该会提示你安装所需的依赖项，否则你可以手动安装：
 
 ```bash
 npm i -D eslint-plugin-format
@@ -606,7 +476,7 @@ npm i -D eslint-plugin-format
 
 #### React
 
-To enable React support, you need to explicitly turn it on:
+要启用 React 支持，你需要显式开启：
 
 ```js
 // eslint.config.js
@@ -617,7 +487,7 @@ export default defineConfig({
 })
 ```
 
-Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
+运行 `npx eslint` 时应该会提示你安装所需的依赖项，否则你可以手动安装：
 
 ```bash
 npm i -D @eslint-react/eslint-plugin eslint-plugin-react-hooks eslint-plugin-react-refresh
@@ -625,7 +495,7 @@ npm i -D @eslint-react/eslint-plugin eslint-plugin-react-hooks eslint-plugin-rea
 
 #### Svelte
 
-To enable svelte support, you need to explicitly turn it on:
+要启用 Svelte 支持，你需要显式开启：
 
 ```js
 // eslint.config.js
@@ -636,7 +506,7 @@ export default defineConfig({
 })
 ```
 
-Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
+运行 `npx eslint` 时应该会提示你安装所需的依赖项，否则你可以手动安装：
 
 ```bash
 npm i -D eslint-plugin-svelte
@@ -644,7 +514,7 @@ npm i -D eslint-plugin-svelte
 
 #### Astro
 
-To enable astro support, you need to explicitly turn it on:
+要启用 Astro 支持，你需要显式开启：
 
 ```js
 // eslint.config.js
@@ -655,7 +525,7 @@ export default defineConfig({
 })
 ```
 
-Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
+运行 `npx eslint` 时应该会提示你安装所需的依赖项，否则你可以手动安装：
 
 ```bash
 npm i -D eslint-plugin-astro
@@ -663,7 +533,7 @@ npm i -D eslint-plugin-astro
 
 #### Solid
 
-To enable Solid support, you need to explicitly turn it on:
+要启用 Solid 支持，你需要显式开启：
 
 ```js
 // eslint.config.js
@@ -674,7 +544,7 @@ export default defineConfig({
 })
 ```
 
-Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
+运行 `npx eslint` 时应该会提示你安装所需的依赖项，否则你可以手动安装：
 
 ```bash
 npm i -D eslint-plugin-solid
@@ -682,7 +552,7 @@ npm i -D eslint-plugin-solid
 
 #### UnoCSS
 
-To enable UnoCSS support, you need to explicitly turn it on:
+要启用 UnoCSS 支持，你需要显式开启：
 
 ```js
 // eslint.config.js
@@ -693,30 +563,30 @@ export default defineConfig({
 })
 ```
 
-Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
+运行 `npx eslint` 时应该会提示你安装所需的依赖项，否则你可以手动安装：
 
 ```bash
 npm i -D @unocss/eslint-plugin
 ```
 
-### Optional Rules
+### 可选规则
 
-This config also provides some optional plugins/rules for extended usage.
+此配置还提供了一些可选插件/规则以供扩展使用。
 
 #### `command`
 
-Powered by [`eslint-plugin-command`](https://github.com/antfu/eslint-plugin-command). It is not a typical rule for linting, but an on-demand micro-codemod tool that triggers by specific comments.
+由 [`eslint-plugin-command`](https://github.com/antfu/eslint-plugin-command) 提供支持。它不是典型的 lint 规则，而是一个按需的微型代码修改工具，通过特定注释触发。
 
-For a few triggers, for example:
+例如以下触发器：
 
-- `/// to-function` - converts an arrow function to a normal function
-- `/// to-arrow` - converts a normal function to an arrow function
-- `/// to-for-each` - converts a for-in/for-of loop to `.forEach()`
-- `/// to-for-of` - converts a `.forEach()` to a for-of loop
-- `/// keep-sorted` - sorts an object/array/interface
-- ... etc. - refer to the [documentation](https://github.com/antfu/eslint-plugin-command#built-in-commands)
+- `/// to-function` - 将箭头函数转换为普通函数
+- `/// to-arrow` - 将普通函数转换为箭头函数
+- `/// to-for-each` - 将 for-in/for-of 循环转换为 `.forEach()`
+- `/// to-for-of` - 将 `.forEach()` 转换为 for-of 循环
+- `/// keep-sorted` - 对对象/数组/接口进行排序
+- ... 等等 - 详见 [文档](https://github.com/antfu/eslint-plugin-command#built-in-commands)
 
-You can add the trigger comment one line above the code you want to transform, for example (note the triple slash):
+你可以在要转换的代码上方添加触发注释，例如（注意三条斜杠）：
 
 <!-- eslint-skip -->
 
@@ -727,7 +597,7 @@ const foo = async (msg: string): void => {
 }
 ```
 
-Will be transformed to this when you hit save with your editor or run `eslint --fix`:
+当你保存文件时，它会被转换为：
 
 ```ts
 async function foo(msg: string): void {
@@ -735,11 +605,11 @@ async function foo(msg: string): void {
 }
 ```
 
-The command comments are usually one-off and will be removed along with the transformation.
+命令注释通常是一锤子的，保存后会连同转换一起删除。
 
-### Type Aware Rules
+### 类型感知规则
 
-You can optionally enable the [type aware rules](https://typescript-eslint.io/linting/typed-linting/) by passing the options object to the `typescript` config:
+你可以通过将选项对象传递给 `typescript` 配置来选择性启用 [类型感知规则](https://typescript-eslint.io/linting/typed-linting/)：
 
 ```js
 // eslint.config.js
@@ -752,17 +622,17 @@ export default defineConfig({
 })
 ```
 
-### Editor Specific Disables
+### 编辑器特定禁用
 
-Auto-fixing for the following rules are disabled when ESLint is running in a code editor:
+当 ESLint 在代码编辑器中运行时，以下规则的自动修复被禁用：
 
 - [`prefer-const`](https://eslint.org/docs/rules/prefer-const)
 - [`test/no-only-tests`](https://github.com/levibuzolic/eslint-plugin-no-only-tests)
 - [`unused-imports/no-unused-imports`](https://www.npmjs.com/package/eslint-plugin-unused-imports)
 
-Since v3.16.0, they are no longer disabled, but made non-fixable using [this helper](https://github.com/antfu/eslint-flat-config-utils#composerdisablerulesfix).
+自 v3.16.0 起，它们不再被禁用，而是通过 [这个助手](https://github.com/antfu/eslint-flat-config-utils#composerdisablerulesfix) 设置为不可修复。
 
-This is to prevent unused imports from getting removed by the editor during refactoring to get a better developer experience. Those rules will be applied when you run ESLint in the terminal or [Lint Staged](#lint-staged). If you don't want this behavior, you can disable them:
+这是为了防止在重构时编辑器删除未使用的导入，从而获得更好的开发体验。这些规则将在你在终端中运行 ESLint 或 [Lint Staged](#lint-staged) 时应用。如果你不想要这种行为，可以禁用它们：
 
 ```js
 // eslint.config.js
@@ -775,7 +645,7 @@ export default defineConfig({
 
 ### Lint Staged
 
-If you want to apply lint and auto-fix before every commit, you can add the following to your `package.json`:
+如果你想在每次提交前应用 lint 和自动修复，可以在 `package.json` 中添加以下内容：
 
 ```json
 {
@@ -788,75 +658,65 @@ If you want to apply lint and auto-fix before every commit, you can add the foll
 }
 ```
 
-and then
+然后
 
 ```bash
 npm i -D lint-staged simple-git-hooks
 
-// to active the hooks
+// 激活钩子
 npx simple-git-hooks
 ```
 
-## View what rules are enabled
+## 查看启用的规则
 
-I built a visual tool to help you view what rules are enabled in your project and apply them to what files, [@eslint/config-inspector](https://github.com/eslint/config-inspector)
+我构建了一个可视化工具，帮助你查看项目中启用的规则及其适用文件，[@eslint/config-inspector](https://github.com/eslint/config-inspector)
 
-Go to your project root that contains `eslint.config.js` and run:
+进入包含 `eslint.config.js` 的项目根目录，运行：
 
 ```bash
 npx @eslint/config-inspector
 ```
 
-## Versioning Policy
+## 版本控制策略
 
-This project follows [Semantic Versioning](https://semver.org/) for releases. However, since this is just a config and involves opinions and many moving parts, we don't treat rules changes as breaking changes.
+本项目遵循 [语义化版本控制](https://semver.org/) 发布。然而，由于这只是一个配置，涉及到许多主观意见和许多变动的部分，我们不将规则变更视为破坏性变更。
 
-### Changes Considered as Breaking Changes
+### 被视为破坏性变更的更改
 
-- Node.js version requirement changes
-- Huge refactors that might break the config
-- Plugins made major changes that might break the config
-- Changes that might affect most of the codebases
+- Node.js 版本要求更改
+- 可能破坏配置的重大重构
+- 插件重大更改可能破坏配置
+- 可能影响大多数代码库的更改
 
-### Changes Considered as Non-breaking Changes
+### 被视为非破坏性变更的更改
 
-- Enable/disable rules and plugins (that might become stricter)
-- Rules options changes
-- Version bumps of dependencies
+- 启用/禁用规则和插件（可能变得更严格）
+- 规则选项更改
+- 依赖项版本提升
 
-## Badge
-
-If you enjoy this code style, and would like to mention it in your project, here is the badge you can use:
-
-```md
-[![code style](https://antfu.me/badge-code-style.svg)](https://github.com/antfu/eslint-config)
-```
-
-[![code style](https://antfu.me/badge-code-style.svg)](https://github.com/antfu/eslint-config)
-
-## FAQ
+## 常见问题
 
 ### Prettier?
 
 [Why I don't use Prettier](https://antfu.me/posts/why-not-prettier)
 
-Well, you can still use Prettier to format files that are not supported well by ESLint yet, such as `.css`, `.html`, etc. See [formatters](#formatters) for more details.
+不过，你仍然可以使用 Prettier 来格式化 ESLint 尚不支持的文件，例如 `.css`、`.html` 等。有关更多详细信息，请参见[格式化工具](#formatters)。
 
 ### dprint?
 
-[dprint](https://dprint.dev/) is also a great formatter that with more abilities to customize. However, it's in the same model as Prettier which reads the AST and reprints the code from scratch. This means it's similar to Prettier, which ignores the original line breaks and might also cause the inconsistent diff. So in general, we prefer to use ESLint to format and lint JavaScript/TypeScript code.
+[dprint](https://dprint.dev/) 也是一个很棒的格式化工具，具有更多自定义能力。然而，它与 Prettier 类似，都是从头读取 AST 并重新打印代码。这意味着它与 Prettier 类似，忽略原始换行符，可能导致不一致的 diff。因此，通常我们更喜欢使用 ESLint 来格式化和检查 JavaScript/TypeScript 代码。
 
-Meanwhile, we do have dprint integrations for formatting other files such as `.md`. See [formatters](#formatters) for more details.
+同时，我们确实有 dprint 集成用于格式化其他文件，例如 `.md`。有关更多详细信息，请参见[格式化工具](#formatters)。
 
-### How to format CSS?
+### 如何格式化 CSS？
 
-You can opt-in to the [`formatters`](#formatters) feature to format your CSS. Note that it's only doing formatting, but not linting. If you want proper linting support, give [`stylelint`](https://stylelint.io/) a try.
+你可以选择加入 [`formatters`](#formatters) 功能来格式化你的 CSS。请注意，这只是进行格式化，而不是 linting。如果你想要适当的 linting 支持，可以尝试 [`stylelint`](https://stylelint.io/)。
 
-### Top-level Function Style, etc.
+### 顶级函数风格等
 
-I am a very opinionated person, so as this config. I prefer the top-level functions always using the function declaration over arrow functions; I prefer one-line if statements without braces and always wraps, and so on. I even wrote some custom rules to enforce them.
+我个人意见很强烈，所以这个配置也是。我更喜欢顶级函数始终使用函数声明而不是箭头函数；我喜欢没有大括号的一行 if 语句，并且总是换行，等等。我甚至写了一些自定义规则来强制执行它们。
 
-I know they are not necessarily the popular opinions. If you really want to get rid of them, you can disable them with:
+我知道它们不一定是流行的观点。如果你真的想摆脱它们，可以通过以下方式禁用它们：
 
 ```ts
 import defineConfig from '@zhangwj0520/eslint-config'
@@ -866,17 +726,13 @@ export default defineConfig({
 })
 ```
 
-### I prefer XXX...
+### 我更喜欢 XXX...
 
-Sure, you can configure and override rules locally in your project to fit your needs. If that still does not work for you, you can always fork this repo and maintain your own.
+当然，你可以在项目中自定义和覆盖规则以适应你的需求。如果这仍然不适合你，欢迎 fork 此仓库并维护你自己的版本。
 
-## Check Also
+## 另请查看
 
-- [antfu/dotfiles](https://github.com/antfu/dotfiles) - My dotfiles
-- [antfu/vscode-settings](https://github.com/antfu/vscode-settings) - My VS Code settings
-- [antfu/starter-ts](https://github.com/antfu/starter-ts) - My starter template for TypeScript library
-- [antfu/vitesse](https://github.com/antfu/vitesse) - My starter template for Vue & Vite app
-
-## License
-
-[MIT](./LICENSE) License &copy; 2019-PRESENT [Anthony Fu](https://github.com/antfu)
+- [antfu/dotfiles](https://github.com/antfu/dotfiles) - 我的 dotfiles
+- [antfu/vscode-settings](https://github.com/antfu/vscode-settings) - 我的 VS Code 设置
+- [antfu/starter-ts](https://github.com/antfu/starter-ts) - 我用于 TypeScript 库的启动模板
+- [antfu/vitesse](https://github.com/antfu/vitesse) - 我用于 Vue & Vite 应用的启动模板
