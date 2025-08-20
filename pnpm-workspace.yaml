@@ -7,6 +7,9 @@ overrides:
   '@typescript-eslint/utils': ^8.39.0
   eslint: ^9.33.0
   tsx: ^4.20.3
+catalog:
+  '@types/eslint-plugin-tailwindcss': ^3.17.0
+  eslint-plugin-tailwindcss: ^3.18.0
 catalogs:
   dev:
     '@antfu/ni': ^25.0.0
