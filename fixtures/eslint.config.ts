@@ -1,6 +1,6 @@
-import { defineConfig } from './src'
+import { antfu } from './src'
 
-export default defineConfig(
+export default antfu(
   {
     vue: {
       a11y: true,
@@ -9,14 +9,10 @@ export default defineConfig(
     solid: true,
     svelte: true,
     astro: true,
-    nextjs: true,
     typescript: true,
     formatters: true,
     pnpm: true,
     type: 'lib',
-    jsx: {
-      a11y: true,
-    },
   },
   {
     ignores: [
@@ -29,7 +25,6 @@ export default defineConfig(
     files: ['src/**/*.ts'],
     rules: {
       'perfectionist/sort-objects': 'error',
-      'antfu/no-top-level-await': 'off',
     },
   },
 )
