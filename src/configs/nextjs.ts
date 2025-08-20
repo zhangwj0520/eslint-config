@@ -26,7 +26,7 @@ export async function nextjs(
 
   return [
     {
-      name: 'antfu/nextjs/setup',
+      name: 'zhangwj0520/nextjs/setup',
       plugins: {
         next: pluginNextJS,
       },
@@ -41,7 +41,7 @@ export async function nextjs(
         },
         sourceType: 'module',
       },
-      name: 'antfu/nextjs/rules',
+      name: 'zhangwj0520/nextjs/rules',
       rules: {
         ...normalizeRules(pluginNextJS.configs.recommended.rules),
         ...normalizeRules(pluginNextJS.configs['core-web-vitals'].rules),
