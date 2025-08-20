@@ -64,6 +64,7 @@ export async function stylistic(
 
         "style/generator-star-spacing": ["error", { after: true, before: false }],
         "style/jsx-quotes": ["error", "prefer-double"],
+        "style/jsx-sort-props": ["error", { ignoreCase: true, shorthandFirst: true }],
         "style/quotes": ["error", "double", { allowTemplateLiterals: true }],
         "style/yield-star-spacing": ["error", { after: true, before: false }],
 
