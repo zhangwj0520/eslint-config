@@ -1,9 +1,9 @@
-import type { OptionsComponentExts, OptionsFiles, OptionsOverrides, TypedFlatConfigItem } from "../types"
+import type { OptionsComponentExts, OptionsFiles, OptionsOverrides, TypedFlatConfigItem } from '../types'
 
-import { mergeProcessors, processorPassThrough } from "eslint-merge-processors"
-import { GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MARKDOWN_IN_MARKDOWN } from "../globs"
+import { mergeProcessors, processorPassThrough } from 'eslint-merge-processors'
+import { GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MARKDOWN_IN_MARKDOWN } from '../globs'
 
-import { interopDefault, parserPlain } from "../utils"
+import { interopDefault, parserPlain } from '../utils'
 
 export async function markdown(
   options: OptionsFiles & OptionsComponentExts & OptionsOverrides = {},
@@ -14,11 +14,11 @@ export async function markdown(
     overrides = {},
   } = options
 
-  const markdown = await interopDefault(import("@eslint/markdown"))
+  const markdown = await interopDefault(import('@eslint/markdown'))
 
   return [
     {
-      name: "zhangwj0520/markdown/setup",
+      name: 'zhangwj0520/markdown/setup',
       plugins: {
         markdown,
       },
@@ -26,7 +26,7 @@ export async function markdown(
     {
       files,
       ignores: [GLOB_MARKDOWN_IN_MARKDOWN],
-      name: "zhangwj0520/markdown/processor",
+      name: 'zhangwj0520/markdown/processor',
       // `eslint-plugin-markdown` only creates virtual files for code blocks,
       // but not the markdown file itself. We use `eslint-merge-processors` to
       // add a pass-through processor for the markdown file itself.
@@ -40,7 +40,7 @@ export async function markdown(
       languageOptions: {
         parser: parserPlain,
       },
-      name: "zhangwj0520/markdown/parser",
+      name: 'zhangwj0520/markdown/parser',
     },
     {
       files: [
@@ -54,38 +54,38 @@ export async function markdown(
           },
         },
       },
-      name: "zhangwj0520/markdown/disables",
+      name: 'zhangwj0520/markdown/disables',
       rules: {
-        "no-alert": "off",
+        'no-alert': 'off',
 
-        "no-console": "off",
-        "no-labels": "off",
-        "no-lone-blocks": "off",
-        "no-restricted-syntax": "off",
-        "no-undef": "off",
-        "no-unused-expressions": "off",
-        "no-unused-labels": "off",
-        "no-unused-vars": "off",
-        "node/prefer-global/process": "off",
+        'no-console': 'off',
+        'no-labels': 'off',
+        'no-lone-blocks': 'off',
+        'no-restricted-syntax': 'off',
+        'no-undef': 'off',
+        'no-unused-expressions': 'off',
+        'no-unused-labels': 'off',
+        'no-unused-vars': 'off',
+        'node/prefer-global/process': 'off',
 
-        "style/comma-dangle": "off",
+        'style/comma-dangle': 'off',
 
-        "style/eol-last": "off",
-        "style/padding-line-between-statements": "off",
-        "ts/consistent-type-imports": "off",
+        'style/eol-last': 'off',
+        'style/padding-line-between-statements': 'off',
+        'ts/consistent-type-imports': 'off',
 
-        "ts/explicit-function-return-type": "off",
-        "ts/no-namespace": "off",
-        "ts/no-redeclare": "off",
-        "ts/no-require-imports": "off",
-        "ts/no-unused-expressions": "off",
-        "ts/no-unused-vars": "off",
-        "ts/no-use-before-define": "off",
-        "unicode-bom": "off",
+        'ts/explicit-function-return-type': 'off',
+        'ts/no-namespace': 'off',
+        'ts/no-redeclare': 'off',
+        'ts/no-require-imports': 'off',
+        'ts/no-unused-expressions': 'off',
+        'ts/no-unused-vars': 'off',
+        'ts/no-use-before-define': 'off',
+        'unicode-bom': 'off',
 
-        "unused-imports/no-unused-imports": "off",
-        "unused-imports/no-unused-vars": "off",
-        "zhangwj0520/no-top-level-await": "off",
+        'unused-imports/no-unused-imports': 'off',
+        'unused-imports/no-unused-vars': 'off',
+        'zhangwj0520/no-top-level-await': 'off',
 
         ...overrides,
       },
