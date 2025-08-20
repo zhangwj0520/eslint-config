@@ -1,4 +1,4 @@
-import { defineConfig } from './src'
+import { defineConfig } from "./src"
 
 export default defineConfig(
   {
@@ -13,23 +13,23 @@ export default defineConfig(
     typescript: true,
     formatters: true,
     pnpm: true,
-    type: 'lib',
+    type: "lib",
     jsx: {
       a11y: true,
     },
   },
   {
     ignores: [
-      'fixtures',
-      '_fixtures',
-      '**/constants-generated.ts',
+      "fixtures",
+      "_fixtures",
+      "**/constants-generated.ts",
     ],
   },
   {
-    files: ['src/**/*.ts'],
+    files: ["src/**/*.ts"],
     rules: {
-      'perfectionist/sort-objects': 'error',
-      'antfu/no-top-level-await': 'off',
+      "perfectionist/sort-objects": "error",
+      "antfu/no-top-level-await": "off",
     },
   },
 )

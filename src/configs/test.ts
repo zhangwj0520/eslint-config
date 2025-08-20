@@ -1,7 +1,7 @@
-import type { OptionsFiles, OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from '../types'
+import type { OptionsFiles, OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from "../types"
 
-import { GLOB_TESTS } from '../globs'
-import { interopDefault } from '../utils'
+import { GLOB_TESTS } from "../globs"
+import { interopDefault } from "../utils"
 
 // Hold the reference so we don't redeclare the plugin on each call
 let _pluginTest: any
@@ -19,9 +19,9 @@ export async function test(
     pluginVitest,
     pluginNoOnlyTests,
   ] = await Promise.all([
-    interopDefault(import('@vitest/eslint-plugin')),
+    interopDefault(import("@vitest/eslint-plugin")),
     // @ts-expect-error missing types
-    interopDefault(import('eslint-plugin-no-only-tests')),
+    interopDefault(import("eslint-plugin-no-only-tests")),
   ] as const)
 
   _pluginTest = _pluginTest || {
@@ -35,29 +35,29 @@ export async function test(
 
   return [
     {
-      name: 'zhangwj0520/test/setup',
+      name: "zhangwj0520/test/setup",
       plugins: {
         test: _pluginTest,
       },
     },
     {
       files,
-      name: 'zhangwj0520/test/rules',
+      name: "zhangwj0520/test/rules",
       rules: {
-        'test/consistent-test-it': ['error', { fn: 'it', withinDescribe: 'it' }],
-        'test/no-identical-title': 'error',
-        'test/no-import-node-test': 'error',
-        'test/no-only-tests': isInEditor ? 'warn' : 'error',
+        "test/consistent-test-it": ["error", { fn: "it", withinDescribe: "it" }],
+        "test/no-identical-title": "error",
+        "test/no-import-node-test": "error",
+        "test/no-only-tests": isInEditor ? "warn" : "error",
 
-        'test/prefer-hooks-in-order': 'error',
-        'test/prefer-lowercase-title': 'error',
+        "test/prefer-hooks-in-order": "error",
+        "test/prefer-lowercase-title": "error",
 
         // Disables
         ...{
-          'no-unused-expressions': 'off',
-          'node/prefer-global/process': 'off',
-          'ts/explicit-function-return-type': 'off',
-          'zhangwj0520/no-top-level-await': 'off',
+          "no-unused-expressions": "off",
+          "node/prefer-global/process": "off",
+          "ts/explicit-function-return-type": "off",
+          "zhangwj0520/no-top-level-await": "off",
         },
 
         ...overrides,

@@ -40,7 +40,7 @@ pnpm i -D eslint @zhangwj0520/eslint-config
 
 ```js
 // eslint.config.mjs
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig()
 ```
@@ -132,7 +132,7 @@ export default defineConfig()
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig()
 ```
@@ -141,11 +141,11 @@ export default defineConfig()
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig({
 // 项目类型。库使用 'lib'，默认是 'app'
-  type: 'lib',
+  type: "lib",
 
   // 启用风格格式化规则
   // stylistic: true,
@@ -153,7 +153,7 @@ export default defineConfig({
   // 或自定义风格规则
   stylistic: {
     indent: 2, // 4 或 'tab'
-    quotes: 'single', // 或 'double'
+    quotes: "single", // 或 'double'
   },
 
   // TypeScript 和 Vue 会自动检测，你也可以显式启用：
@@ -166,7 +166,7 @@ export default defineConfig({
 
   // `.eslintignore` 在 Flat 配置中不再受支持，请改用 `ignores`
   ignores: [
-    '**/fixtures',
+    "**/fixtures",
     // ...globs
   ]
 })
@@ -176,7 +176,7 @@ export default defineConfig({
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig(
   {
@@ -186,7 +186,7 @@ export default defineConfig(
   // 从第二个参数开始是 ESLint Flat 配置
   // 你可以有多个配置
   {
-    files: ['**/*.ts'],
+    files: ["**/*.ts"],
     rules: {},
   },
   {
@@ -222,7 +222,7 @@ import {
   unicorn,
   vue,
   yaml,
-} from '@zhangwj0520/eslint-config'
+} from "@zhangwj0520/eslint-config"
 
 export default combine(
   ignores(),
@@ -252,7 +252,7 @@ export default combine(
 
 由于 flat 配置要求我们显式提供插件名称（而不是 npm 包名称的强制约定），我们重命名了一些插件，以使整体范围更一致，更易于书写。
 
-| 新前缀     | 原前缀                 | 源插件                                                                                        |
+| 新前缀     | 原前缀                 | 源插件                                                                                                |
 | ---------- | ---------------------- | ----------------------------------------------------------------------------------------------------- |
 | `import/*` | `import-lite/*`        | [eslint-plugin-import-lite](https://github.com/9romise/eslint-plugin-import-lite)                     |
 | `node/*`   | `n/*`                  | [eslint-plugin-n](https://github.com/eslint-community/eslint-plugin-n)                                |
@@ -288,13 +288,13 @@ type foo = { bar: 2 }
 如果你真的想使用原始前缀，可以通过以下方式恢复插件重命名：
 
 ```ts
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig()
   .renamePlugins({
-    ts: '@typescript-eslint',
-    yaml: 'yml',
-    node: 'n'
+    ts: "@typescript-eslint",
+    yaml: "yml",
+    node: "n"
     // ...
   })
 ```
@@ -307,7 +307,7 @@ export default defineConfig()
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig(
   {
@@ -316,15 +316,15 @@ export default defineConfig(
   },
   {
     // 请记得在此处指定文件 glob，否则可能导致 vue 插件处理非 vue 文件
-    files: ['**/*.vue'],
+    files: ["**/*.vue"],
     rules: {
-      'vue/operator-linebreak': ['error', 'before'],
+      "vue/operator-linebreak": ["error", "before"],
     },
   },
   {
     // 没有 `files`，则是所有文件的通用规则
     rules: {
-      'style/semi': ['error', 'never'],
+      "style/semi": ["error", "never"],
     },
   }
 )
@@ -334,17 +334,17 @@ export default defineConfig(
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig({
   vue: {
     overrides: {
-      'vue/operator-linebreak': ['error', 'before'],
+      "vue/operator-linebreak": ["error", "before"],
     },
   },
   typescript: {
     overrides: {
-      'ts/consistent-type-definitions': ['error', 'interface'],
+      "ts/consistent-type-definitions": ["error", "interface"],
     },
   },
   yaml: {
@@ -361,7 +361,7 @@ export default defineConfig({
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig()
   .prepend(
@@ -369,16 +369,16 @@ export default defineConfig()
   )
   // 覆盖任何命名的配置
   .override(
-    'zhangwj0520/stylistic/rules',
+    "zhangwj0520/stylistic/rules",
     {
       rules: {
-        'style/generator-star-spacing': ['error', { after: true, before: false }],
+        "style/generator-star-spacing": ["error", { after: true, before: false }],
       }
     }
   )
   // 重命名插件前缀
   .renamePlugins({
-    'old-prefix': 'new-prefix',
+    "old-prefix": "new-prefix",
     // ...
   })
 // ...
@@ -390,7 +390,7 @@ Vue 支持会通过检查项目中是否安装了 `vue` 自动检测。你也可
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig({
   vue: true
@@ -403,7 +403,7 @@ export default defineConfig({
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig({
   vue: {
@@ -420,7 +420,7 @@ export default defineConfig({
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig({
   vue: {
@@ -445,7 +445,7 @@ npm i -D eslint-plugin-vuejs-accessibility
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig({
   formatters: {
@@ -464,7 +464,7 @@ export default defineConfig({
      * 支持 Prettier 和 dprint
      * 默认使用 Prettier
      */
-    markdown: 'prettier'
+    markdown: "prettier"
   }
 })
 ```
@@ -481,7 +481,7 @@ npm i -D eslint-plugin-format
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig({
   react: true,
@@ -500,7 +500,7 @@ To enable Next.js support, you need to explicitly turn it on:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from "@antfu/eslint-config"
 
 export default antfu({
   nextjs: true,
@@ -519,7 +519,7 @@ npm i -D @next/eslint-plugin-next
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig({
   svelte: true,
@@ -538,7 +538,7 @@ npm i -D eslint-plugin-svelte
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig({
   astro: true,
@@ -557,7 +557,7 @@ npm i -D eslint-plugin-astro
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig({
   solid: true,
@@ -576,7 +576,7 @@ npm i -D eslint-plugin-solid
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig({
   unocss: true,
@@ -633,11 +633,11 @@ async function foo(msg: string): void {
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig({
   typescript: {
-    tsconfigPath: 'tsconfig.json',
+    tsconfigPath: "tsconfig.json",
   },
 })
 ```
@@ -656,7 +656,7 @@ export default defineConfig({
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig({
   isInEditor: false
@@ -739,7 +739,7 @@ npx @eslint/config-inspector
 我知道它们不一定是流行的观点。如果你真的想摆脱它们，可以通过以下方式禁用它们：
 
 ```ts
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from "@zhangwj0520/eslint-config"
 
 export default defineConfig({
   lessOpinionated: true
