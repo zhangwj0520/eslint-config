@@ -2,12 +2,12 @@
  * Vendor types from Prettier so we don't rely on the dependency.
  */
 
-export type VendoredPrettierOptions = Partial<VendoredPrettierOptionsRequired>
+export type VendoredPrettierOptions = Partial<VendoredPrettierOptionsRequired>;
 
 export type VendoredPrettierRuleOptions = VendoredPrettierOptions & {
   parser?: BuiltInParserName | ExternalParserName
   [k: string]: unknown | undefined
-}
+};
 
 export interface VendoredPrettierOptionsRequired {
   /**
@@ -149,9 +149,9 @@ export type BuiltInParserName
     | 'typescript'
     | 'vue'
     | 'xml'
-    | 'yaml'
+    | 'yaml';
 
-export type ExternalParserName = 'slidev' | 'astro'
+export type ExternalParserName = 'slidev' | 'astro';
 
 // This utility is here to handle the case where you have an explicit union
 // between string literals and the generic string type. It would normally
@@ -162,4 +162,4 @@ export type ExternalParserName = 'slidev' | 'astro'
 //   https://github.com/microsoft/TypeScript/issues/29729#issuecomment-700527227
 export type LiteralUnion<T extends U, U = string>
   = | T
-    | (Pick<U, never> & { _?: never | undefined })
+    | (Pick<U, never> & { _?: never | undefined });

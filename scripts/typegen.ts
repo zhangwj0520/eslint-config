@@ -1,10 +1,10 @@
-import fs from 'node:fs/promises'
+import fs from 'node:fs/promises';
 /* eslint-disable antfu/no-top-level-await */
-import { flatConfigsToRulesDTS } from 'eslint-typegen/core'
+import { flatConfigsToRulesDTS } from 'eslint-typegen/core';
 
-import { builtinRules } from 'eslint/use-at-your-own-risk'
+import { builtinRules } from 'eslint/use-at-your-own-risk';
 
-import { astro, combine, comments, formatters, imports, javascript, jsdoc, jsonc, jsx, markdown, nextjs, node, perfectionist, react, regexp, solid, sortPackageJson, stylistic, svelte, tailwindcss, test, toml, typescript, unicorn, unocss, vue, yaml } from '../src'
+import { astro, combine, comments, formatters, imports, javascript, jsdoc, jsonc, jsx, markdown, nextjs, node, perfectionist, react, regexp, solid, sortPackageJson, stylistic, svelte, tailwindcss, test, toml, typescript, unicorn, unocss, vue, yaml } from '../src';
 
 const configs = await combine(
   {
@@ -40,17 +40,17 @@ const configs = await combine(
   tailwindcss(),
   vue(),
   yaml(),
-)
+);
 
-const configNames = configs.map(i => i.name).filter(Boolean) as string[]
+const configNames = configs.map(i => i.name).filter(Boolean) as string[];
 
 let dts = await flatConfigsToRulesDTS(configs, {
   includeAugmentation: false,
-})
+});
 
 dts += `
 // Names of all the configs
 export type ConfigNames = ${configNames.map(i => `'${i}'`).join(' | ')}
-`
+`;
 
-await fs.writeFile('src/typegen.d.ts', dts)
+await fs.writeFile('src/typegen.d.ts', dts);

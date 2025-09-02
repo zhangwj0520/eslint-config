@@ -1,8 +1,8 @@
-import type { OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from '../types'
+import type { OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from '../types';
 
-import globals from 'globals'
+import globals from 'globals';
 
-import { pluginAntfu, pluginUnusedImports } from '../plugins'
+import { pluginAntfu, pluginUnusedImports } from '../plugins';
 
 export async function javascript(
   options: OptionsIsInEditor & OptionsOverrides = {},
@@ -10,7 +10,7 @@ export async function javascript(
   const {
     isInEditor = false,
     overrides = {},
-  } = options
+  } = options;
 
   return [
     {
@@ -211,5 +211,5 @@ export async function javascript(
         ...overrides,
       },
     },
-  ]
+  ];
 }

@@ -1,13 +1,13 @@
-import type { OptionsFiles, OptionsOverrides, TypedFlatConfigItem } from '../types'
-import { GLOB_SRC } from '../globs'
-import { ensurePackages, interopDefault } from '../utils'
+import type { OptionsFiles, OptionsOverrides, TypedFlatConfigItem } from '../types';
+import { GLOB_SRC } from '../globs';
+import { ensurePackages, interopDefault } from '../utils';
 
 function normalizeRules(rules: Record<string, any>): Record<string, any> {
   return Object.fromEntries(
     Object.entries(rules).map(([key, value]) =>
       [key, typeof value === 'string' ? [value] : value],
     ),
-  )
+  );
 }
 
 export async function nextjs(
@@ -16,13 +16,13 @@ export async function nextjs(
   const {
     files = [GLOB_SRC],
     overrides = {},
-  } = options
+  } = options;
 
   await ensurePackages([
     '@next/eslint-plugin-next',
-  ])
+  ]);
 
-  const pluginNextJS = await interopDefault(import('@next/eslint-plugin-next'))
+  const pluginNextJS = await interopDefault(import('@next/eslint-plugin-next'));
 
   return [
     {
@@ -55,5 +55,5 @@ export async function nextjs(
         },
       },
     },
-  ]
+  ];
 }

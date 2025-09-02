@@ -1,7 +1,7 @@
-import type { OptionsFiles, OptionsOverrides, OptionsStylistic, TypedFlatConfigItem } from '../types'
+import type { OptionsFiles, OptionsOverrides, OptionsStylistic, TypedFlatConfigItem } from '../types';
 
-import { GLOB_ASTRO } from '../globs'
-import { interopDefault } from '../utils'
+import { GLOB_ASTRO } from '../globs';
+import { interopDefault } from '../utils';
 
 export async function astro(
   options: OptionsOverrides & OptionsStylistic & OptionsFiles = {},
@@ -10,7 +10,7 @@ export async function astro(
     files = [GLOB_ASTRO],
     overrides = {},
     stylistic = true,
-  } = options
+  } = options;
 
   const [
     pluginAstro,
@@ -20,7 +20,7 @@ export async function astro(
     interopDefault(import('eslint-plugin-astro')),
     interopDefault(import('astro-eslint-parser')),
     interopDefault(import('@typescript-eslint/parser')),
-  ] as const)
+  ] as const);
 
   return [
     {
@@ -71,5 +71,5 @@ export async function astro(
         ...overrides,
       },
     },
-  ]
+  ];
 }

@@ -1,30 +1,30 @@
 /* eslint-disable perfectionist/sort-objects */
-import type { OptionsFiles, OptionsOverrides, OptionsTypeScriptParserOptions, OptionsTypeScriptWithTypes, TypedFlatConfigItem } from '../types'
+import type { OptionsFiles, OptionsOverrides, OptionsTypeScriptParserOptions, OptionsTypeScriptWithTypes, TypedFlatConfigItem } from '../types';
 
-import { isPackageExists } from 'local-pkg'
-import { GLOB_ASTRO_TS, GLOB_MARKDOWN, GLOB_SRC, GLOB_TS, GLOB_TSX } from '../globs'
+import { isPackageExists } from 'local-pkg';
+import { GLOB_ASTRO_TS, GLOB_MARKDOWN, GLOB_SRC, GLOB_TS, GLOB_TSX } from '../globs';
 
-import { ensurePackages, interopDefault } from '../utils'
+import { ensurePackages, interopDefault } from '../utils';
 
 // react refresh
 const ReactRefreshAllowConstantExportPackages = [
   'vite',
-]
+];
 const RemixPackages = [
   '@remix-run/node',
   '@remix-run/react',
   '@remix-run/serve',
   '@remix-run/dev',
-]
+];
 const ReactRouterPackages = [
   '@react-router/node',
   '@react-router/react',
   '@react-router/serve',
   '@react-router/dev',
-]
+];
 const NextJsPackages = [
   'next',
-]
+];
 
 export async function react(
   options: OptionsTypeScriptParserOptions & OptionsTypeScriptWithTypes & OptionsOverrides & OptionsFiles = {},
@@ -38,19 +38,19 @@ export async function react(
     ],
     overrides = {},
     tsconfigPath,
-  } = options
+  } = options;
 
   await ensurePackages([
     '@eslint-react/eslint-plugin',
     'eslint-plugin-react-hooks',
     'eslint-plugin-react-refresh',
-  ])
+  ]);
 
-  const isTypeAware = !!tsconfigPath
+  const isTypeAware = !!tsconfigPath;
 
   const typeAwareRules: TypedFlatConfigItem['rules'] = {
     'react/no-leaked-conditional-rendering': 'warn',
-  }
+  };
 
   const [
     pluginReact,
@@ -60,14 +60,14 @@ export async function react(
     interopDefault(import('@eslint-react/eslint-plugin')),
     interopDefault(import('eslint-plugin-react-hooks')),
     interopDefault(import('eslint-plugin-react-refresh')),
-  ] as const)
+  ] as const);
 
-  const isAllowConstantExport = ReactRefreshAllowConstantExportPackages.some(i => isPackageExists(i))
-  const isUsingRemix = RemixPackages.some(i => isPackageExists(i))
-  const isUsingReactRouter = ReactRouterPackages.some(i => isPackageExists(i))
-  const isUsingNext = NextJsPackages.some(i => isPackageExists(i))
+  const isAllowConstantExport = ReactRefreshAllowConstantExportPackages.some(i => isPackageExists(i));
+  const isUsingRemix = RemixPackages.some(i => isPackageExists(i));
+  const isUsingReactRouter = ReactRouterPackages.some(i => isPackageExists(i));
+  const isUsingNext = NextJsPackages.some(i => isPackageExists(i));
 
-  const plugins = pluginReact.configs.all.plugins
+  const plugins = pluginReact.configs.all.plugins;
 
   return [
     {
@@ -220,5 +220,5 @@ export async function react(
           },
         }]
       : [],
-  ]
+  ];
 }

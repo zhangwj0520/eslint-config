@@ -1,6 +1,6 @@
-import type { OptionsTailwindCSS, TypedFlatConfigItem } from '../types'
+import type { OptionsTailwindCSS, TypedFlatConfigItem } from '../types';
 
-import { ensurePackages, interopDefault } from '../utils'
+import { ensurePackages, interopDefault } from '../utils';
 
 export async function tailwindcss(
   options: OptionsTailwindCSS = {},
@@ -8,17 +8,17 @@ export async function tailwindcss(
   const {
     attributify = true,
     strict = false,
-  } = options
+  } = options;
 
   await ensurePackages([
     'eslint-plugin-tailwindcss',
-  ])
+  ]);
 
   const [
     pluginTailWindCSS,
   ] = await Promise.all([
     interopDefault(import('eslint-plugin-tailwindcss')),
-  ] as const)
+  ] as const);
 
   return [
     {
@@ -62,5 +62,5 @@ export async function tailwindcss(
         },
       },
     },
-  ]
+  ];
 }

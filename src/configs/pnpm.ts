@@ -1,6 +1,6 @@
-import type { TypedFlatConfigItem } from '../types'
+import type { TypedFlatConfigItem } from '../types';
 
-import { interopDefault } from '../utils'
+import { interopDefault } from '../utils';
 
 export async function pnpm(): Promise<TypedFlatConfigItem[]> {
   const [
@@ -11,7 +11,7 @@ export async function pnpm(): Promise<TypedFlatConfigItem[]> {
     interopDefault(import('eslint-plugin-pnpm')),
     interopDefault(import('yaml-eslint-parser')),
     interopDefault(import('jsonc-eslint-parser')),
-  ])
+  ]);
 
   return [
     {
@@ -46,5 +46,5 @@ export async function pnpm(): Promise<TypedFlatConfigItem[]> {
         'pnpm/yaml-no-unused-catalog-item': 'error',
       },
     },
-  ]
+  ];
 }

@@ -5,11 +5,11 @@ import type {
   OptionsStylistic,
   OptionsVue,
   TypedFlatConfigItem,
-} from '../types'
+} from '../types';
 
-import { mergeProcessors } from 'eslint-merge-processors'
-import { GLOB_VUE } from '../globs'
-import { ensurePackages, interopDefault } from '../utils'
+import { mergeProcessors } from 'eslint-merge-processors';
+import { GLOB_VUE } from '../globs';
+import { ensurePackages, interopDefault } from '../utils';
 
 export async function vue(
   options: OptionsVue & OptionsHasTypeScript & OptionsOverrides & OptionsStylistic & OptionsFiles = {},
@@ -20,20 +20,20 @@ export async function vue(
     overrides = {},
     stylistic = true,
     vueVersion = 3,
-  } = options
+  } = options;
 
   const sfcBlocks = options.sfcBlocks === true
     ? {}
-    : options.sfcBlocks ?? {}
+    : options.sfcBlocks ?? {};
 
   const {
     indent = 2,
-  } = typeof stylistic === 'boolean' ? {} : stylistic
+  } = typeof stylistic === 'boolean' ? {} : stylistic;
 
   if (a11y) {
     await ensurePackages([
       'eslint-plugin-vuejs-accessibility',
-    ])
+    ]);
   }
 
   const [
@@ -46,7 +46,7 @@ export async function vue(
     interopDefault(import('vue-eslint-parser')), // 此解析器允许我们对 .vue 文件的 <template> 进行 lint
     interopDefault(import('eslint-processor-vue-blocks')),
     ...a11y ? [interopDefault(import('eslint-plugin-vuejs-accessibility'))] : [],
-  ] as const)
+  ] as const);
 
   return [
     {
@@ -232,5 +232,5 @@ export async function vue(
         ...overrides,
       },
     },
-  ]
+  ];
 }

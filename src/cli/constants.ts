@@ -1,5 +1,5 @@
-import type { ExtraLibrariesOption, FrameworkOption, PromItem } from './types'
-import c from 'ansis'
+import type { ExtraLibrariesOption, FrameworkOption, PromItem } from './types';
+import c from 'ansis';
 
 export const vscodeSettingsString = `
   // Disable the default formatter, use eslint instead
@@ -51,7 +51,7 @@ export const vscodeSettingsString = `
     "pcss",
     "postcss"
   ]
-`
+`;
 
 export const frameworkOptions: PromItem<FrameworkOption>[] = [
   {
@@ -78,9 +78,9 @@ export const frameworkOptions: PromItem<FrameworkOption>[] = [
     label: c.blue('Slidev'),
     value: 'slidev',
   },
-]
+];
 
-export const frameworks: FrameworkOption[] = frameworkOptions.map(({ value }) => (value))
+export const frameworks: FrameworkOption[] = frameworkOptions.map(({ value }) => (value));
 
 export const extraOptions: PromItem<ExtraLibrariesOption>[] = [
   {
@@ -92,9 +92,9 @@ export const extraOptions: PromItem<ExtraLibrariesOption>[] = [
     label: c.cyan('UnoCSS'),
     value: 'unocss',
   },
-]
+];
 
-export const extra: ExtraLibrariesOption[] = extraOptions.map(({ value }) => (value))
+export const extra: ExtraLibrariesOption[] = extraOptions.map(({ value }) => (value));
 
 export const dependenciesMap = {
   astro: [
@@ -132,4 +132,4 @@ export const dependenciesMap = {
     '@unocss/eslint-plugin',
   ],
   vue: [],
-} as const
+} as const;

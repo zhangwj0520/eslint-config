@@ -1,4 +1,4 @@
-import type { TypedFlatConfigItem } from '../types'
+import type { TypedFlatConfigItem } from '../types';
 
 /**
  * Sort package.json
@@ -106,7 +106,7 @@ export async function sortPackageJson(): Promise<TypedFlatConfigItem[]> {
         ],
       },
     },
-  ]
+  ];
 }
 /**
  * Sort tsconfig.json
@@ -240,5 +240,5 @@ export function sortTsconfig(): TypedFlatConfigItem[] {
         ],
       },
     },
-  ]
+  ];
 }

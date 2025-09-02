@@ -1,16 +1,16 @@
-import type { StylisticCustomizeOptions } from '@stylistic/eslint-plugin'
-import type { ParserOptions } from '@typescript-eslint/parser'
-import type { Linter } from 'eslint'
-import type { FlatGitignoreOptions } from 'eslint-config-flat-gitignore'
-import type { Options as VueBlocksOptions } from 'eslint-processor-vue-blocks'
-import type { ConfigNames, RuleOptions } from './typegen'
-import type { VendoredPrettierOptions } from './vender/prettier-types'
+import type { StylisticCustomizeOptions } from '@stylistic/eslint-plugin';
+import type { ParserOptions } from '@typescript-eslint/parser';
+import type { Linter } from 'eslint';
+import type { FlatGitignoreOptions } from 'eslint-config-flat-gitignore';
+import type { Options as VueBlocksOptions } from 'eslint-processor-vue-blocks';
+import type { ConfigNames, RuleOptions } from './typegen';
+import type { VendoredPrettierOptions } from './vender/prettier-types';
 
-export type Awaitable<T> = T | Promise<T>
+export type Awaitable<T> = T | Promise<T>;
 
-export type Rules = Record<string, Linter.RuleEntry<any> | undefined> & RuleOptions
+export type Rules = Record<string, Linter.RuleEntry<any> | undefined> & RuleOptions;
 
-export type { ConfigNames }
+export type { ConfigNames };
 
 /**
  * An updated version of ESLint's `Linter.Config`, which provides autocompletion
@@ -31,7 +31,7 @@ export type TypedFlatConfigItem = Omit<Linter.Config, 'plugins' | 'rules'> & {
    * specified, these rule configurations are only available to the matching files.
    */
   rules?: Rules
-}
+};
 
 export interface OptionsFiles {
   /**
@@ -84,7 +84,7 @@ export interface OptionsJSX {
 
 export type OptionsTypescript
   = (OptionsTypeScriptWithTypes & OptionsOverrides)
-    | (OptionsTypeScriptParserOptions & OptionsOverrides)
+    | (OptionsTypeScriptParserOptions & OptionsOverrides);
 
 export interface OptionsFormatters {
   /**

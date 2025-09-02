@@ -1,13 +1,13 @@
-import type { OptionsOverrides, StylisticConfig, TypedFlatConfigItem } from '../types'
-import { pluginAntfu } from '../plugins'
-import { interopDefault } from '../utils'
+import type { OptionsOverrides, StylisticConfig, TypedFlatConfigItem } from '../types';
+import { pluginAntfu } from '../plugins';
+import { interopDefault } from '../utils';
 
 export const StylisticConfigDefaults: StylisticConfig = {
   indent: 2,
   jsx: true,
   quotes: 'single',
   semi: false,
-}
+};
 
 export interface StylisticOptions extends StylisticConfig, OptionsOverrides {
   lessOpinionated?: boolean
@@ -26,9 +26,9 @@ export async function stylistic(
   } = {
     ...StylisticConfigDefaults,
     ...options,
-  }
+  };
 
-  const pluginStylistic = await interopDefault(import('@stylistic/eslint-plugin'))
+  const pluginStylistic = await interopDefault(import('@stylistic/eslint-plugin'));
 
   const config = pluginStylistic.configs.customize({
     indent,
@@ -36,7 +36,7 @@ export async function stylistic(
     pluginName: 'style',
     quotes,
     semi,
-  }) as TypedFlatConfigItem
+  }) as TypedFlatConfigItem;
 
   return [
     {
@@ -66,10 +66,11 @@ export async function stylistic(
         'style/jsx-quotes': ['error', 'prefer-double'],
         'style/jsx-sort-props': ['error', { ignoreCase: true, shorthandFirst: true }],
         'style/quotes': ['error', 'single', { allowTemplateLiterals: 'always', avoidEscape: true }],
+        'style/semi': ['error', 'always', { omitLastInOneLineBlock: true, omitLastInOneLineClassBody: true }],
         'style/yield-star-spacing': ['error', { after: true, before: false }],
 
         ...overrides,
       },
     },
-  ]
+  ];
 }

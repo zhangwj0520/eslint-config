@@ -1,18 +1,18 @@
-import process from 'node:process'
+import process from 'node:process';
 
-import * as p from '@clack/prompts'
-import c from 'ansis'
-import { cac } from 'cac'
+import * as p from '@clack/prompts';
+import c from 'ansis';
+import { cac } from 'cac';
 
-import { version } from '../../package.json'
-import { run } from './run'
+import { version } from '../../package.json';
+import { run } from './run';
 
 function header(): void {
-  console.log('\n')
-  p.intro(`${c.green`@zhangwj0520/eslint-config `}${c.dim`v${version}`}`)
+  console.log('\n');
+  p.intro(`${c.green`@zhangwj0520/eslint-config `}${c.dim`v${version}`}`);
 }
 
-const cli = cac('@zhangwj0520/eslint-config')
+const cli = cac('@zhangwj0520/eslint-config');
 
 cli
   .command('', 'Run the initialization or migration')
@@ -20,17 +20,17 @@ cli
   .option('--template, -t <template>', 'Use the framework template for optimal customization: vue / react / svelte / astro', { type: [] })
   .option('--extra, -e <extra>', 'Use the extra utils: formatter / perfectionist / unocss', { type: [] })
   .action(async (args) => {
-    header()
+    header();
     try {
-      await run(args)
+      await run(args);
     }
     catch (error) {
-      p.log.error(c.inverse.red(' Failed to migrate '))
-      p.log.error(c.red`✘ ${String(error)}`)
-      process.exit(1)
+      p.log.error(c.inverse.red(' Failed to migrate '));
+      p.log.error(c.red`✘ ${String(error)}`);
+      process.exit(1);
     }
-  })
+  });
 
-cli.help()
-cli.version(version)
-cli.parse()
+cli.help();
+cli.version(version);
+cli.parse();

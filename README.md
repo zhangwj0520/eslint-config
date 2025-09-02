@@ -40,9 +40,9 @@ pnpm i -D eslint @zhangwj0520/eslint-config
 
 ```js
 // eslint.config.mjs
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
-export default defineConfig()
+export default defineConfig();
 ```
 
 ### package.json 脚本
@@ -132,16 +132,16 @@ export default defineConfig()
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
-export default defineConfig()
+export default defineConfig();
 ```
 
 就可以了！或者你可以单独配置每个集成，例如：
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig({
 // 项目类型。库使用 'lib'，默认是 'app'
@@ -169,14 +169,14 @@ export default defineConfig({
     '**/fixtures',
     // ...globs
   ]
-})
+});
 ```
 
 `defineConfig` 工厂函数还接受任意数量的任意自定义配置覆盖：
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig(
   {
@@ -192,7 +192,7 @@ export default defineConfig(
   {
     rules: {},
   },
-)
+);
 ```
 
 更高级的用法是，你还可以导入细粒度的配置并按需组合：
@@ -222,7 +222,7 @@ import {
   unicorn,
   vue,
   yaml,
-} from '@zhangwj0520/eslint-config'
+} from '@zhangwj0520/eslint-config';
 
 export default combine(
   ignores(),
@@ -239,7 +239,7 @@ export default combine(
   yaml(),
   toml(),
   markdown(),
-)
+);
 ```
 
 </details>
@@ -288,7 +288,7 @@ type foo = { bar: 2 }
 如果你真的想使用原始前缀，可以通过以下方式恢复插件重命名：
 
 ```ts
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig()
   .renamePlugins({
@@ -296,7 +296,7 @@ export default defineConfig()
     yaml: 'yml',
     node: 'n'
     // ...
-  })
+  });
 ```
 
 </details>
@@ -307,7 +307,7 @@ export default defineConfig()
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig(
   {
@@ -327,14 +327,14 @@ export default defineConfig(
       'style/semi': ['error', 'never'],
     },
   }
-)
+);
 ```
 
 我们还为每个集成提供了 `overrides` 选项，以便更轻松地进行配置：
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig({
   vue: {
@@ -352,7 +352,7 @@ export default defineConfig({
       // ...
     },
   },
-})
+});
 ```
 
 ### 配置组合器
@@ -361,7 +361,7 @@ export default defineConfig({
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig()
   .prepend(
@@ -380,7 +380,7 @@ export default defineConfig()
   .renamePlugins({
     'old-prefix': 'new-prefix',
     // ...
-  })
+  });
 // ...
 ```
 
@@ -390,11 +390,11 @@ Vue 支持会通过检查项目中是否安装了 `vue` 自动检测。你也可
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig({
   vue: true
-})
+});
 ```
 
 #### Vue 2
@@ -403,13 +403,13 @@ export default defineConfig({
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig({
   vue: {
     vueVersion: 2
   },
-})
+});
 ```
 
 由于 Vue 2 处于维护模式，我们只接受错误修复。建议尽可能升级到 Vue 3。
@@ -420,13 +420,13 @@ export default defineConfig({
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig({
   vue: {
     a11y: true
   },
-})
+});
 ```
 
 运行 `npx eslint` 时应该会提示你安装所需的依赖项，否则你可以手动安装：
@@ -445,7 +445,7 @@ npm i -D eslint-plugin-vuejs-accessibility
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig({
   formatters: {
@@ -466,7 +466,7 @@ export default defineConfig({
      */
     markdown: 'prettier'
   }
-})
+});
 ```
 
 运行 `npx eslint` 时应该会提示你安装所需的依赖项，否则你可以手动安装：
@@ -481,11 +481,11 @@ npm i -D eslint-plugin-format
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig({
   react: true,
-})
+});
 ```
 
 运行 `npx eslint` 时应该会提示你安装所需的依赖项，否则你可以手动安装：
@@ -500,11 +500,11 @@ To enable Next.js support, you need to explicitly turn it on:
 
 ```js
 // eslint.config.js
-import antfu from '@antfu/eslint-config'
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   nextjs: true,
-})
+});
 ```
 
 Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
@@ -519,11 +519,11 @@ npm i -D @next/eslint-plugin-next
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig({
   svelte: true,
-})
+});
 ```
 
 运行 `npx eslint` 时应该会提示你安装所需的依赖项，否则你可以手动安装：
@@ -538,11 +538,11 @@ npm i -D eslint-plugin-svelte
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig({
   astro: true,
-})
+});
 ```
 
 运行 `npx eslint` 时应该会提示你安装所需的依赖项，否则你可以手动安装：
@@ -557,11 +557,11 @@ npm i -D eslint-plugin-astro
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig({
   solid: true,
-})
+});
 ```
 
 运行 `npx eslint` 时应该会提示你安装所需的依赖项，否则你可以手动安装：
@@ -576,11 +576,11 @@ npm i -D eslint-plugin-solid
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig({
   unocss: true,
-})
+});
 ```
 
 运行 `npx eslint` 时应该会提示你安装所需的依赖项，否则你可以手动安装：
@@ -621,7 +621,7 @@ const foo = async (msg: string): void => {
 
 ```ts
 async function foo(msg: string): void {
-  console.log(msg)
+  console.log(msg);
 }
 ```
 
@@ -633,13 +633,13 @@ async function foo(msg: string): void {
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig({
   typescript: {
     tsconfigPath: 'tsconfig.json',
   },
-})
+});
 ```
 
 ### 编辑器特定禁用
@@ -656,11 +656,11 @@ export default defineConfig({
 
 ```js
 // eslint.config.js
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig({
   isInEditor: false
-})
+});
 ```
 
 ### Lint Staged
@@ -739,11 +739,11 @@ npx @eslint/config-inspector
 我知道它们不一定是流行的观点。如果你真的想摆脱它们，可以通过以下方式禁用它们：
 
 ```ts
-import defineConfig from '@zhangwj0520/eslint-config'
+import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig({
   lessOpinionated: true
-})
+});
 ```
 
 ### 我更喜欢 XXX...

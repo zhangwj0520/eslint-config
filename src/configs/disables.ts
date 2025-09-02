@@ -1,6 +1,6 @@
-import type { TypedFlatConfigItem } from '../types'
+import type { TypedFlatConfigItem } from '../types';
 
-import { GLOB_SRC, GLOB_SRC_EXT } from '../globs'
+import { GLOB_SRC, GLOB_SRC_EXT } from '../globs';
 
 export async function disables(): Promise<TypedFlatConfigItem[]> {
   return [
@@ -54,5 +54,5 @@ export async function disables(): Promise<TypedFlatConfigItem[]> {
         'zhangwj0520/no-top-level-await': 'off',
       },
     },
-  ]
+  ];
 }

@@ -1,7 +1,7 @@
-import type { OptionsFiles, OptionsHasTypeScript, OptionsOverrides, OptionsStylistic, TypedFlatConfigItem } from '../types'
+import type { OptionsFiles, OptionsHasTypeScript, OptionsOverrides, OptionsStylistic, TypedFlatConfigItem } from '../types';
 
-import { GLOB_SVELTE } from '../globs'
-import { ensurePackages, interopDefault } from '../utils'
+import { GLOB_SVELTE } from '../globs';
+import { ensurePackages, interopDefault } from '../utils';
 
 export async function svelte(
   options: OptionsHasTypeScript & OptionsOverrides & OptionsStylistic & OptionsFiles = {},
@@ -10,16 +10,16 @@ export async function svelte(
     files = [GLOB_SVELTE],
     overrides = {},
     stylistic = true,
-  } = options
+  } = options;
 
   const {
     indent = 2,
     quotes = 'single',
-  } = typeof stylistic === 'boolean' ? {} : stylistic
+  } = typeof stylistic === 'boolean' ? {} : stylistic;
 
   await ensurePackages([
     'eslint-plugin-svelte',
-  ])
+  ]);
 
   const [
     pluginSvelte,
@@ -27,7 +27,7 @@ export async function svelte(
   ] = await Promise.all([
     interopDefault(import('eslint-plugin-svelte')),
     interopDefault(import('svelte-eslint-parser')),
-  ] as const)
+  ] as const);
 
   return [
     {
@@ -107,5 +107,5 @@ export async function svelte(
         ...overrides,
       },
     },
-  ]
+  ];
 }

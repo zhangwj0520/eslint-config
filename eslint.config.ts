@@ -1,4 +1,4 @@
-import { defineConfig } from './src'
+import { defineConfig } from './src';
 
 export default defineConfig(
   {
@@ -32,4 +32,4 @@ export default defineConfig(
       'antfu/no-top-level-await': 'off',
     },
   },
-)
+);
