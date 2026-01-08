@@ -21,6 +21,7 @@ export * from './sort';
 export * from './stylistic';
 export * from './svelte';
 export * from './tailwindcss';
+export * from './tanstack';
 export * from './test';
 export * from './toml';
 export * from './typescript';

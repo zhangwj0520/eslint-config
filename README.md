@@ -81,7 +81,7 @@ export default defineConfig();
     "source.organizeImports": "never"
   },
 
-  // 在 IDE 中静默风格规则，但仍自动修复
+  // Silent the stylistic rules in your IDE, but still auto fix them
   "eslint.rules.customizations": [
     { "rule": "style/*", "severity": "off", "fixable": true },
     { "rule": "format/*", "severity": "off", "fixable": true },
@@ -128,7 +128,88 @@ export default defineConfig();
 
 [ESLint Flat 配置](https://eslint.org/docs/latest/use/configure/configuration-files-new)。它提供了更好的组织和组合方式。
 
-通常你只需导入 `defineConfig` 预设：
+Update your configuration to use the following:
+
+```lua
+local customizations = {
+  { rule = 'style/*', severity = 'off', fixable = true },
+  { rule = 'format/*', severity = 'off', fixable = true },
+  { rule = '*-indent', severity = 'off', fixable = true },
+  { rule = '*-spacing', severity = 'off', fixable = true },
+  { rule = '*-spaces', severity = 'off', fixable = true },
+  { rule = '*-order', severity = 'off', fixable = true },
+  { rule = '*-dangle', severity = 'off', fixable = true },
+  { rule = '*-newline', severity = 'off', fixable = true },
+  { rule = '*quotes', severity = 'off', fixable = true },
+  { rule = '*semi', severity = 'off', fixable = true },
+}
+
+local lspconfig = require('lspconfig')
+-- Enable eslint for all supported languages
+lspconfig.eslint.setup(
+  {
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "javascript.jsx",
+      "typescript",
+      "typescriptreact",
+      "typescript.tsx",
+      "vue",
+      "html",
+      "markdown",
+      "json",
+      "jsonc",
+      "yaml",
+      "toml",
+      "xml",
+      "gql",
+      "graphql",
+      "astro",
+      "svelte",
+      "css",
+      "less",
+      "scss",
+      "pcss",
+      "postcss"
+    },
+    settings = {
+      -- Silent the stylistic rules in your IDE, but still auto fix them
+      rulesCustomizations = customizations,
+    },
+  }
+)
+```
+
+### Neovim format on save
+
+There's few ways you can achieve format on save in neovim:
+
+- `nvim-lspconfig` has a `EslintFixAll` command predefined, you can create a autocmd to call this command after saving file.
+
+```lua
+lspconfig.eslint.setup({
+  --- ...
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+  end,
+})
+```
+
+- Use [conform.nvim](https://github.com/stevearc/conform.nvim).
+- Use [none-ls](https://github.com/nvimtools/none-ls.nvim)
+- Use [nvim-lint](https://github.com/mfussenegger/nvim-lint)
+
+</details>
+
+## Customization
+
+Since v1.0, we migrated to [ESLint Flat config](https://eslint.org/docs/latest/use/configure/configuration-files-new). It provides much better organization and composition.
+
+Normally you only need to import the `antfu` preset:
 
 ```js
 // eslint.config.js
@@ -144,11 +225,23 @@ export default defineConfig();
 import defineConfig from '@zhangwj0520/eslint-config';
 
 export default defineConfig({
-// 项目类型。库使用 'lib'，默认是 'app'
+  // Type of the project. 'lib' for libraries, the default is 'app'
   type: 'lib',
 
-  // 启用风格格式化规则
-  // stylistic: true,
+  // `.eslintignore` is no longer supported in Flat config, use `ignores` instead
+  // The `ignores` option in the option (first argument) is specifically treated to always be global ignores
+  // And will **extend** the config's default ignores, not override them
+  // You can also pass a function to modify the default ignores
+  ignores: [
+    '**/fixtures',
+    // ...globs
+  ],
+
+  // Parse the `.gitignore` file to get the ignores, on by default
+  gitignore: true,
+
+  // Enable stylistic formatting rules
+  stylistic: true,
 
   // 或自定义风格规则
   stylistic: {
@@ -163,12 +256,6 @@ export default defineConfig({
   // 禁用 jsonc 和 yaml 支持
   jsonc: false,
   yaml: false,
-
-  // `.eslintignore` 在 Flat 配置中不再受支持，请改用 `ignores`
-  ignores: [
-    '**/fixtures',
-    // ...globs
-  ]
 });
 ```
 
@@ -649,6 +736,9 @@ export default defineConfig({
 - [`prefer-const`](https://eslint.org/docs/rules/prefer-const)
 - [`test/no-only-tests`](https://github.com/levibuzolic/eslint-plugin-no-only-tests)
 - [`unused-imports/no-unused-imports`](https://www.npmjs.com/package/eslint-plugin-unused-imports)
+- [`pnpm/json-enforce-catalog`](https://github.com/antfu/pnpm-workspace-utils/tree/main/packages/eslint-plugin-pnpm#rules)
+- [`pnpm/json-prefer-workspace-settings`](https://github.com/antfu/pnpm-workspace-utils/tree/main/packages/eslint-plugin-pnpm#rules)
+- [`pnpm/json-valid-catalog`](https://github.com/antfu/pnpm-workspace-utils/tree/main/packages/eslint-plugin-pnpm#rules)
 
 自 v3.16.0 起，它们不再被禁用，而是通过 [这个助手](https://github.com/antfu/eslint-flat-config-utils#composerdisablerulesfix) 设置为不可修复。
 
@@ -721,6 +811,10 @@ npx @eslint/config-inspector
 [Why I don't use Prettier](https://antfu.me/posts/why-not-prettier)
 
 不过，你仍然可以使用 Prettier 来格式化 ESLint 尚不支持的文件，例如 `.css`、`.html` 等。有关更多详细信息，请参见[格式化工具](#formatters)。
+
+### oxlint?
+
+We do have a plan to integrate [oxlint](https://github.com/oxc-project/oxc) in someway to speed up the linting process. However there are still some blocks we are waiting for. Track the progress [in this issue: **Oxlint Integration Plan**](https://github.com/antfu/eslint-config/issues/767).
 
 ### dprint?
 

@@ -83,8 +83,8 @@ export interface OptionsJSX {
 }
 
 export type OptionsTypescript
-  = (OptionsTypeScriptWithTypes & OptionsOverrides)
-    | (OptionsTypeScriptParserOptions & OptionsOverrides);
+  = (OptionsTypeScriptWithTypes & OptionsOverrides & OptionsTypeScriptErasableOnly)
+    | (OptionsTypeScriptParserOptions & OptionsOverrides & OptionsTypeScriptErasableOnly);
 
 export interface OptionsFormatters {
   /**
@@ -220,7 +220,7 @@ export interface OptionsStylistic {
 }
 
 export interface StylisticConfig
-  extends Pick<StylisticCustomizeOptions, 'indent' | 'quotes' | 'jsx' | 'semi'> {
+  extends Pick<StylisticCustomizeOptions, 'indent' | 'quotes' | 'jsx' | 'semi' | 'experimental'> {
 }
 
 export interface OptionsOverrides {
@@ -236,6 +236,16 @@ export interface OptionsProjectType {
   type?: 'app' | 'lib'
 }
 
+export interface OptionsTypeScriptErasableOnly {
+  /**
+   * Enable erasable syntax only rules.
+   *
+   * @see https://github.com/JoshuaKGoldberg/eslint-plugin-erasable-syntax-only
+   * @default false
+   */
+  erasableOnly?: boolean
+}
+
 export interface OptionsRegExp {
   /**
    * Override rulelevels
@@ -245,6 +255,36 @@ export interface OptionsRegExp {
 
 export interface OptionsIsInEditor {
   isInEditor?: boolean
+}
+
+export interface OptionsPnpm extends OptionsIsInEditor {
+  /**
+   * Requires catalogs usage
+   *
+   * Detects automatically based if `catalogs` is used in the pnpm-workspace.yaml file
+   */
+  catalogs?: boolean
+
+  /**
+   * Enable linting for package.json, will install the jsonc parser
+   *
+   * @default true
+   */
+  json?: boolean
+
+  /**
+   * Enable linting for pnpm-workspace.yaml, will install the yaml parser
+   *
+   * @default true
+   */
+  yaml?: boolean
+
+  /**
+   * Sort entries in pnpm-workspace.yaml
+   *
+   * @default false
+   */
+  sort?: boolean
 }
 
 export interface OptionsUnoCSS extends OptionsOverrides {
@@ -272,6 +312,10 @@ export interface OptionsTailwindCSS extends OptionsOverrides {
   strict?: boolean
 }
 
+export interface OptionsReact extends OptionsOverrides {
+  reactCompiler?: boolean
+}
+
 export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType {
   /**
    * Enable gitignore support.
@@ -282,6 +326,16 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
    * @default true
    */
   gitignore?: boolean | FlatGitignoreOptions
+
+  /**
+   * Extend the global ignores.
+   *
+   * Passing an array to extends the ignores.
+   * Passing a function to modify the default ignores.
+   *
+   * @default []
+   */
+  ignores?: string[] | ((originals: string[]) => string[])
 
   /**
    * Disable some opinionated rules to Anthony's preference.
@@ -298,6 +352,20 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
    * Core rules. Can't be disabled.
    */
   javascript?: OptionsOverrides
+
+  /**
+   * Enable Node.js rules
+   *
+   * @default true
+   */
+  node?: boolean
+
+  /**
+   * Enable JSDoc rules
+   *
+   * @default true
+   */
+  jsdoc?: boolean
 
   /**
    * Enable TypeScript support.
@@ -344,6 +412,13 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
    * @default auto-detect based on the dependencies
    */
   vue?: boolean | OptionsVue
+
+  /**
+   * Enable tanstack support.
+   *
+   * @default auto-detect based on the dependencies
+   */
+  tanstack?: boolean | OptionsReact
 
   /**
    * Enable JSONC support.
@@ -414,7 +489,7 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
    *
    * @default false
    */
-  react?: boolean | OptionsOverrides
+  react?: boolean | OptionsReact
 
   /**
    * Enable nextjs rules.
@@ -476,7 +551,7 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
    * @experimental
    * @default false
    */
-  pnpm?: boolean
+  pnpm?: boolean | OptionsPnpm
 
   /**
    * Use external formatters to format files.
