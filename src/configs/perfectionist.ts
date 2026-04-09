@@ -34,8 +34,8 @@ export async function perfectionist(): Promise<TypedFlatConfigItem[]> {
           order: 'asc',
           type: 'natural',
         }],
+        'perfectionist/sort-jsx-props': ['error', { order: 'asc', type: 'natural' }],
         'perfectionist/sort-named-exports': ['error', { order: 'asc', type: 'natural' }],
-        'perfectionist/sort-named-imports': ['error', { order: 'asc', type: 'natural' }],
       },
     },
   ];
