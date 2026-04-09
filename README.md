@@ -124,7 +124,74 @@ export default defineConfig();
 
 </details>
 
-## 自定义
+<details>
+<summary>🔲 Zed support</summary>
+
+<br>
+
+Add the following settings to your `.zed/settings.json`:
+
+```jsonc
+{
+  "format_on_save": "on",
+  "formatter": [
+    // Use ESLint's --fix:
+    { "code_action": "source.fixAll.eslint" }
+  ],
+  // Enable eslint for all supported languages
+  // Defaults only include https://github.com/search?q=repo%3Azed-industries%2Fzed%20eslint_languages&type=code
+  "languages": {
+    "HTML": {
+      "language_servers": ["...", "eslint"]
+    },
+    "Markdown": {
+      "language_servers": ["...", "eslint"]
+    },
+    "JSON": {
+      "language_servers": ["...", "eslint"]
+    },
+    "JSONC": {
+      "language_servers": ["...", "eslint"]
+    },
+    "YAML": {
+      "language_servers": ["...", "eslint"]
+    },
+    "CSS": {
+      "language_servers": ["...", "eslint"]
+    }
+    // Add other languages as needed
+  },
+  "lsp": {
+    "eslint": {
+      "settings": {
+        // Remove after https://github.com/zed-industries/zed/issues/49387
+        "experimental": {
+          "useFlatConfig": false
+        },
+
+        // Silent the stylistic rules in your IDE, but still auto fix them
+        "rulesCustomizations": [
+          { "rule": "style/*", "severity": "off", "fixable": true },
+          { "rule": "format/*", "severity": "off", "fixable": true },
+          { "rule": "*-indent", "severity": "off", "fixable": true },
+          { "rule": "*-spacing", "severity": "off", "fixable": true },
+          { "rule": "*-spaces", "severity": "off", "fixable": true },
+          { "rule": "*-order", "severity": "off", "fixable": true },
+          { "rule": "*-dangle", "severity": "off", "fixable": true },
+          { "rule": "*-newline", "severity": "off", "fixable": true },
+          { "rule": "*quotes", "severity": "off", "fixable": true },
+          { "rule": "*semi", "severity": "off", "fixable": true }
+        ]
+      }
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>🟩 Neovim Support</summary>
 
 [ESLint Flat 配置](https://eslint.org/docs/latest/use/configure/configuration-files-new)。它提供了更好的组织和组合方式。
 
@@ -241,7 +308,7 @@ export default defineConfig({
   gitignore: true,
 
   // Enable stylistic formatting rules
-  stylistic: true,
+  // stylistic: true,
 
   // 或自定义风格规则
   stylistic: {
@@ -578,7 +645,7 @@ export default defineConfig({
 运行 `npx eslint` 时应该会提示你安装所需的依赖项，否则你可以手动安装：
 
 ```bash
-npm i -D @eslint-react/eslint-plugin eslint-plugin-react-hooks eslint-plugin-react-refresh
+npm i -D @eslint-react/eslint-plugin eslint-plugin-react-refresh
 ```
 
 #### Next.js
@@ -676,7 +743,26 @@ export default defineConfig({
 npm i -D @unocss/eslint-plugin
 ```
 
-### 可选规则
+#### Angular
+
+To enable Angular support, you need to explicitly turn it on:
+
+```js
+// eslint.config.js
+import antfu from '@antfu/eslint-config'
+
+export default antfu({
+  angular: true,
+})
+```
+
+Running `npx eslint` should prompt you to install the required dependencies, otherwise, you can install them manually:
+
+```bash
+npm i -D @angular-eslint/eslint-plugin @angular-eslint/eslint-plugin-template @angular-eslint/template-parser
+```
+
+### Optional Rules
 
 此配置还提供了一些可选插件/规则以供扩展使用。
 

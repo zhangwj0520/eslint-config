@@ -6,6 +6,7 @@ import { FlatConfigComposer } from 'eslint-flat-config-utils';
 import { findUpSync } from 'find-up-simple';
 import { isPackageExists } from 'local-pkg';
 import {
+  angular,
   astro,
   command,
   comments,
@@ -39,6 +40,7 @@ import {
 import { formatters } from './configs/formatters';
 import { regexp } from './configs/regexp';
 import { interopDefault, isInEditorEnv } from './utils';
+import { e18e } from './configs/e18e'
 
 const flatConfigProps = [
   'name',
@@ -64,8 +66,9 @@ const tanstackPackages = [
 export const defaultPluginRenaming = {
   '@eslint-react': 'react',
   '@eslint-react/dom': 'react-dom',
-  '@eslint-react/hooks-extra': 'react-hooks-extra',
   '@eslint-react/naming-convention': 'react-naming-convention',
+  '@eslint-react/rsc': 'react-rsc',
+  '@eslint-react/web-api': 'react-web-api',
 
   '@next/next': 'next',
   '@stylistic': 'style',
@@ -92,9 +95,11 @@ export function defineConfig(
   ...userConfigs: Awaitable<TypedFlatConfigItem | TypedFlatConfigItem[] | FlatConfigComposer<any, any> | Linter.Config[]>[]
 ): FlatConfigComposer<TypedFlatConfigItem, ConfigNames> {
   const {
+    angular: enableAngular = false,
     astro: enableAstro = false,
     autoRenamePlugins = true,
     componentExts = [],
+    e18e: enableE18e = true,
     gitignore: enableGitignore = true,
     ignores: userIgnores = [],
     imports: enableImports = true,
@@ -109,7 +114,8 @@ export function defineConfig(
     svelte: enableSvelte = false,
     tailwindcss: enableTailWindCSS = isPackageExists('tailwindcss'),
     tanstack: enableTanstack = tanstackPackages.some(i => isPackageExists(i)),
-    typescript: enableTypeScript = isPackageExists('typescript'),
+    type: appType = 'app',
+    typescript: enableTypeScript = isPackageExists('typescript') || isPackageExists('@typescript/native-preview'),
     unicorn: enableUnicorn = true,
     unocss: enableUnoCSS = false,
     vue: enableVue = VuePackages.some(i => isPackageExists(i)),
@@ -158,7 +164,7 @@ export function defineConfig(
 
   // Base configs
   configs.push(
-    ignores(userIgnores),
+    ignores(userIgnores, !enableTypeScript),
     javascript({
       isInEditor,
       overrides: getOverrides(options, 'javascript'),
@@ -193,6 +199,15 @@ export function defineConfig(
     );
   }
 
+  if (enableE18e) {
+    configs.push(
+      e18e({
+        isInEditor,
+        ...enableE18e === true ? {} : enableE18e,
+      }),
+    )
+  }
+
   if (enableUnicorn) {
     configs.push(
       unicorn(enableUnicorn === true ? {} : enableUnicorn),
@@ -215,7 +230,7 @@ export function defineConfig(
         ...typescriptOptions,
         componentExts,
         overrides: getOverrides(options, 'typescript'),
-        type: options.type,
+        type: appType,
       }),
     );
   }
@@ -326,6 +341,12 @@ export function defineConfig(
         stylistic: stylisticOptions,
       }),
     );
+  }
+
+  if (enableAngular) {
+    configs.push(angular({
+      overrides: getOverrides(options, 'angular'),
+    }))
   }
 
   if (options.jsonc ?? true) {

@@ -1,23 +1,24 @@
-import type { StylisticCustomizeOptions } from '@stylistic/eslint-plugin';
-import type { ParserOptions } from '@typescript-eslint/parser';
-import type { Linter } from 'eslint';
-import type { FlatGitignoreOptions } from 'eslint-config-flat-gitignore';
-import type { Options as VueBlocksOptions } from 'eslint-processor-vue-blocks';
-import type { ConfigNames, RuleOptions } from './typegen';
-import type { VendoredPrettierOptions } from './vender/prettier-types';
+import type { StylisticCustomizeOptions } from '@stylistic/eslint-plugin'
+import type { ParserOptions } from '@typescript-eslint/parser'
+import type { Linter } from 'eslint'
+import type { FlatGitignoreOptions } from 'eslint-config-flat-gitignore'
+import type { ConfigWithExtends } from 'eslint-flat-config-utils'
+import type { Options as VueBlocksOptions } from 'eslint-processor-vue-blocks'
+import type { ConfigNames, RuleOptions } from './typegen'
+import type { VendoredPrettierOptions } from './vender/prettier-types'
 
 export type Awaitable<T> = T | Promise<T>;
 
 export type Rules = Record<string, Linter.RuleEntry<any> | undefined> & RuleOptions;
 
-export type { ConfigNames };
+export type { ConfigNames, RuleOptions }
 
 /**
  * An updated version of ESLint's `Linter.Config`, which provides autocompletion
  * for `rules` and relaxes type limitations for `plugins` and `rules`, because
  * many plugins still lack proper type definitions.
  */
-export type TypedFlatConfigItem = Omit<Linter.Config, 'plugins' | 'rules'> & {
+export type TypedFlatConfigItem = Omit<ConfigWithExtends, 'plugins' | 'rules'> & {
   /**
    * An object containing a name-value mapping of plugin names to plugin objects.
    * When `files` is specified, these plugins are only available to the matching files.
@@ -170,6 +171,30 @@ export interface OptionsComponentExts {
   componentExts?: string[]
 }
 
+export interface OptionsE18e extends OptionsOverrides {
+  /**
+   * Include modernization rules
+   *
+   * @see https://github.com/e18e/eslint-plugin#modernization
+   * @default true
+   */
+  modernization?: boolean
+  /**
+   * Include module replacements rules
+   *
+   * @see https://github.com/e18e/eslint-plugin#module-replacements
+   * @default type === 'lib' && isInEditor
+   */
+  moduleReplacements?: boolean
+  /**
+   * Include performance improvements rules
+   *
+   * @see https://github.com/e18e/eslint-plugin#performance-improvements
+   * @default true
+   */
+  performanceImprovements?: boolean
+}
+
 export interface OptionsUnicorn extends OptionsOverrides {
   /**
    * Include all rules recommended by `eslint-plugin-unicorn`, instead of only ones picked by Anthony.
@@ -177,6 +202,20 @@ export interface OptionsUnicorn extends OptionsOverrides {
    * @default false
    */
   allRecommended?: boolean
+}
+
+export interface OptionsMarkdown extends OptionsOverrides {
+  /**
+   * Enable GFM (GitHub Flavored Markdown) support.
+   *
+   * @default true
+   */
+  gfm?: boolean
+
+  /**
+   * Override rules for markdown itself.
+   */
+  overridesMarkdown?: TypedFlatConfigItem['rules']
 }
 
 export interface OptionsTypeScriptParserOptions {
@@ -313,7 +352,6 @@ export interface OptionsTailwindCSS extends OptionsOverrides {
 }
 
 export interface OptionsReact extends OptionsOverrides {
-  reactCompiler?: boolean
 }
 
 export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType {
@@ -386,6 +424,13 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
   jsx?: boolean | OptionsJSX
 
   /**
+   * Options for [@e18e/eslint-plugin](https://github.com/e18e/eslint-plugin)
+   *
+   * @default true
+   */
+  e18e?: boolean | OptionsE18e
+
+  /**
    * Options for eslint-plugin-unicorn.
    *
    * @default true
@@ -455,13 +500,25 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
   astro?: boolean | OptionsOverrides
 
   /**
-   * Enable linting for **code snippets** in Markdown.
+   * Enable Angular support.
+   *
+   * Requires installing:
+   * - `@angular-eslint/eslint-plugin`
+   * - `@angular-eslint/eslint-plugin-template`
+   * - `@angular-eslint/template-parser`
+   *
+   * @default false
+   */
+  angular?: boolean | OptionsOverrides
+
+  /**
+   * Enable linting for **code snippets** in Markdown and the markdown content itself.
    *
    * For formatting Markdown content, enable also `formatters.markdown`.
    *
    * @default true
    */
-  markdown?: boolean | OptionsOverrides
+  markdown?: boolean | OptionsMarkdown
 
   /**
    * Enable stylistic rules.
@@ -484,7 +541,6 @@ export interface OptionsConfig extends OptionsComponentExts, OptionsProjectType 
    *
    * Requires installing:
    * - `@eslint-react/eslint-plugin`
-   * - `eslint-plugin-react-hooks`
    * - `eslint-plugin-react-refresh`
    *
    * @default false

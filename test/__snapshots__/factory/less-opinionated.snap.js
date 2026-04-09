@@ -153,10 +153,16 @@
     ],
   },
   {
-    "name": "antfu/node/rules",
+    "name": "antfu/node/setup",
     "plugins": [
       "node",
     ],
+  },
+  {
+    "files": [
+      "**/*.?([cm])[jt]s?(x)",
+    ],
+    "name": "antfu/node/rules",
     "rules": [
       "node/handle-callback-err",
       "node/no-deprecated-api",
@@ -169,10 +175,16 @@
     ],
   },
   {
-    "name": "antfu/jsdoc/rules",
+    "name": "antfu/jsdoc/setup",
     "plugins": [
       "jsdoc",
     ],
+  },
+  {
+    "files": [
+      "**/*.?([cm])[jt]s?(x)",
+    ],
+    "name": "antfu/jsdoc/rules",
     "rules": [
       "jsdoc/check-access",
       "jsdoc/check-param-names",
@@ -209,6 +221,30 @@
       "import/no-mutable-exports",
       "import/no-named-default",
       "import/newline-after-import",
+    ],
+  },
+  {
+    "name": "antfu/e18e/rules",
+    "plugins": [
+      "e18e",
+    ],
+    "rules": [
+      "e18e/prefer-array-at",
+      "e18e/prefer-array-fill",
+      "e18e/prefer-includes",
+      "- e18e/prefer-array-to-reversed",
+      "- e18e/prefer-array-to-sorted",
+      "- e18e/prefer-array-to-spliced",
+      "e18e/prefer-nullish-coalescing",
+      "e18e/prefer-object-has-own",
+      "- e18e/prefer-spread-syntax",
+      "e18e/prefer-url-canparse",
+      "e18e/prefer-array-from-map",
+      "e18e/prefer-timer-args",
+      "e18e/prefer-date-now",
+      "e18e/prefer-regex-test",
+      "e18e/prefer-array-some",
+      "e18e/prefer-static-regex",
     ],
   },
   {
@@ -522,6 +558,7 @@
       "test/prefer-hooks-in-order",
       "test/prefer-lowercase-title",
       "- antfu/no-top-level-await",
+      "- e18e/prefer-static-regex",
       "- no-unused-expressions",
       "- node/prefer-global/process",
       "- ts/explicit-function-return-type",
@@ -729,9 +766,7 @@
       "**/*.json5",
       "**/*.jsonc",
     ],
-    "languageOptions": {
-      "parser": "jsonc-eslint-parser",
-    },
+    "language": "jsonc/x",
     "name": "antfu/jsonc/rules",
     "rules": [
       "jsonc/no-bigint-literals",
@@ -797,9 +832,7 @@
       "package.json",
       "**/package.json",
     ],
-    "languageOptions": {
-      "parser": "jsonc-eslint-parser",
-    },
+    "language": "jsonc/x",
     "name": "antfu/pnpm/package-json",
     "plugins": [
       "pnpm",
@@ -935,10 +968,50 @@
     "files": [
       "**/*.md",
     ],
-    "languageOptions": {
-      "parser": "parser-plain",
-    },
+    "language": "markdown/gfm",
     "name": "antfu/markdown/parser",
+  },
+  {
+    "files": [
+      "**/*.md",
+    ],
+    "name": "antfu/markdown/rules",
+    "rules": [
+      "- markdown/fenced-code-language",
+      "markdown/heading-increment",
+      "markdown/no-duplicate-definitions",
+      "markdown/no-empty-definitions",
+      "markdown/no-empty-images",
+      "markdown/no-empty-links",
+      "markdown/no-invalid-label-refs",
+      "markdown/no-missing-atx-heading-space",
+      "- markdown/no-missing-label-refs",
+      "markdown/no-missing-link-fragments",
+      "markdown/no-multiple-h1",
+      "markdown/no-reference-like-urls",
+      "markdown/no-reversed-media-syntax",
+      "markdown/no-space-in-emphasis",
+      "markdown/no-unused-definitions",
+      "markdown/require-alt-text",
+      "markdown/table-column-count",
+    ],
+  },
+  {
+    "files": [
+      "**/*.md",
+    ],
+    "name": "antfu/markdown/disables/markdown",
+    "rules": [
+      "- command/command",
+      "- no-irregular-whitespace",
+      "- perfectionist/sort-exports",
+      "- perfectionist/sort-imports",
+      "- regexp/no-legacy-features",
+      "- regexp/no-missing-g-flag",
+      "- regexp/no-useless-dollar-replacements",
+      "- regexp/no-useless-flag",
+      "- style/indent",
+    ],
   },
   {
     "files": [
@@ -952,9 +1025,10 @@
         },
       },
     },
-    "name": "antfu/markdown/disables",
+    "name": "antfu/markdown/disables/code",
     "rules": [
       "- antfu/no-top-level-await",
+      "- e18e/prefer-static-regex",
       "- no-alert",
       "- no-console",
       "- no-labels",

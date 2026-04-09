@@ -14,8 +14,8 @@ const catalogs = Object.values({
   ...yaml.catalogs,
 });
 
-const versions = Object.fromEntries(Array.from(names).map((name) => {
-  const version = catalogs.map(c => c[name]).filter(Boolean)[0];
+const versions = Object.fromEntries(Array.from(names, (name) => {
+  const version = catalogs.map(c => c[name]).filter(Boolean)[0]
   if (!version)
     throw new Error(`Package ${name} not found`);
   return [name, version];

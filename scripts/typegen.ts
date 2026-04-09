@@ -2,8 +2,9 @@ import fs from 'node:fs/promises';
 /* eslint-disable antfu/no-top-level-await */
 import { flatConfigsToRulesDTS } from 'eslint-typegen/core';
 
-import { builtinRules } from 'eslint/use-at-your-own-risk';
-import { CONFIG_PRESET_FULL_ON } from 'src/config-presets';
+import { flatConfigsToRulesDTS } from 'eslint-typegen/core'
+import { builtinRules } from 'eslint/use-at-your-own-risk'
+import { CONFIG_PRESET_FULL_ON } from '../src/config-presets'
 import { defineConfig } from '../src/factory';
 
 const configs = await defineConfig(CONFIG_PRESET_FULL_ON)
