@@ -24,8 +24,89 @@ const ReactRouterPackages = [
 ];
 const NextJsPackages = [
   'next',
-]
+];
 
+function toLegacyReactRuleId(ruleId: string): string {
+  if (!ruleId.startsWith('@eslint-react/'))
+    return ruleId;
+
+  const rawRuleId = ruleId.slice('@eslint-react/'.length);
+
+  if (rawRuleId.startsWith('dom-'))
+    return `react-dom/${rawRuleId.slice('dom-'.length)}`;
+  if (rawRuleId.startsWith('rsc-'))
+    return `react-rsc/${rawRuleId.slice('rsc-'.length)}`;
+  if (rawRuleId.startsWith('web-api-'))
+    return `react-web-api/${rawRuleId.slice('web-api-'.length)}`;
+  if (rawRuleId.startsWith('naming-convention-'))
+    return `react-naming-convention/${rawRuleId.slice('naming-convention-'.length)}`;
+
+  return `react/${rawRuleId}`;
+}
+
+function normalizeReactRules(rules: TypedFlatConfigItem['rules'] | undefined): TypedFlatConfigItem['rules'] {
+  if (!rules)
+    return rules;
+
+  return Object.fromEntries(
+    Object.entries(rules).map(([ruleId, ruleValue]) => [toLegacyReactRuleId(ruleId), ruleValue]),
+  );
+}
+
+function createLegacyPluginAliases(pluginReact: any): TypedFlatConfigItem['plugins'] {
+  const reactRules: Record<string, unknown> = {};
+  const reactDomRules: Record<string, unknown> = {};
+  const reactNamingConventionRules: Record<string, unknown> = {};
+  const reactRscRules: Record<string, unknown> = {};
+  const reactWebApiRules: Record<string, unknown> = {};
+
+  for (const [ruleName, rule] of Object.entries<Record<string, unknown>>(pluginReact.rules ?? {})) {
+    if (ruleName.startsWith('dom-')) {
+      reactDomRules[ruleName.slice('dom-'.length)] = rule;
+      continue;
+    }
+
+    if (ruleName.startsWith('naming-convention-')) {
+      reactNamingConventionRules[ruleName.slice('naming-convention-'.length)] = rule;
+      continue;
+    }
+
+    if (ruleName.startsWith('rsc-')) {
+      reactRscRules[ruleName.slice('rsc-'.length)] = rule;
+      continue;
+    }
+
+    if (ruleName.startsWith('web-api-')) {
+      reactWebApiRules[ruleName.slice('web-api-'.length)] = rule;
+      continue;
+    }
+
+    reactRules[ruleName] = rule;
+  }
+
+  return {
+    'react': {
+      meta: pluginReact.meta,
+      rules: reactRules,
+    },
+    'react-dom': {
+      meta: pluginReact.meta,
+      rules: reactDomRules,
+    },
+    'react-naming-convention': {
+      meta: pluginReact.meta,
+      rules: reactNamingConventionRules,
+    },
+    'react-rsc': {
+      meta: pluginReact.meta,
+      rules: reactRscRules,
+    },
+    'react-web-api': {
+      meta: pluginReact.meta,
+      rules: reactWebApiRules,
+    },
+  };
+}
 export async function react(
   options: OptionsTypeScriptParserOptions & OptionsTypeScriptWithTypes & OptionsReact & OptionsFiles = {},
 ): Promise<TypedFlatConfigItem[]> {
@@ -38,7 +119,7 @@ export async function react(
     ],
     overrides = {},
     tsconfigPath,
-  } = options
+  } = options;
 
   await ensurePackages([
     '@eslint-react/eslint-plugin',
@@ -49,7 +130,7 @@ export async function react(
 
   const typeAwareRules: TypedFlatConfigItem['rules'] = {
     'react/no-leaked-conditional-rendering': 'error',
-  }
+  };
 
   const [
     pluginReact,
@@ -64,18 +145,26 @@ export async function react(
   const isUsingReactRouter = ReactRouterPackages.some(i => isPackageExists(i));
   const isUsingNext = NextJsPackages.some(i => isPackageExists(i));
 
-  const plugins = pluginReact.configs.all.plugins!
+  const pluginsFromConfigs = pluginReact.configs.all.plugins;
+
+  const reactPlugins = pluginsFromConfigs?.['@eslint-react/dom']
+    ? {
+        'react': pluginsFromConfigs['@eslint-react'],
+        'react-dom': pluginsFromConfigs['@eslint-react/dom'],
+        'react-naming-convention': pluginsFromConfigs['@eslint-react/naming-convention'],
+        'react-rsc': pluginsFromConfigs['@eslint-react/rsc'],
+        'react-web-api': pluginsFromConfigs['@eslint-react/web-api'],
+      }
+    : createLegacyPluginAliases(pluginReact);
+
+  const recommendedRules = normalizeReactRules(pluginReact.configs.recommended.rules);
 
   return [
     {
       name: 'zhangwj0520/react/setup',
       plugins: {
-        'react': plugins['@eslint-react'],
-        'react-dom': plugins['@eslint-react/dom'],
-        'react-naming-convention': plugins['@eslint-react/naming-convention'],
+        ...reactPlugins,
         'react-refresh': pluginReactRefresh,
-        'react-rsc': plugins['@eslint-react/rsc'],
-        'react-web-api': plugins['@eslint-react/web-api'],
       },
     },
     {
@@ -90,7 +179,7 @@ export async function react(
       },
       name: 'zhangwj0520/react/rules',
       rules: {
-        ...pluginReact.configs.recommended.rules,
+        ...recommendedRules,
 
         'react/prefer-namespace-import': 'error',
 
@@ -147,7 +236,7 @@ export async function react(
     },
     {
       files: filesTypeAware,
-      name: 'antfu/react/typescript',
+      name: 'zhangwj0520/react/typescript',
       rules: {
         // Disables rules that are already handled by TypeScript
         'react-dom/no-string-style-prop': 'off',

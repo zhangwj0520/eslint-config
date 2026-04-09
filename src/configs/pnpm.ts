@@ -24,7 +24,7 @@ export async function pnpm(
     interopDefault(import('eslint-plugin-pnpm')),
     interopDefault(import('eslint-plugin-yml')),
     interopDefault(import('yaml-eslint-parser')),
-  ])
+  ]);
 
   const {
     catalogs = await detectCatalogUsage(),
